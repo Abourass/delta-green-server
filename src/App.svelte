@@ -1,62 +1,26 @@
 <script lang="typescript">
-	import { onMount } from "svelte";
+  import { user } from './stores/user';
+  import Typewriter from 'svelte-typewriter';
+  import LogInForm from './components/LogInForm.svelte';
 
-	let count: number = 0;
-	onMount(() => {
-		const interval = setInterval(() => count++, 1000);
-		return () => {
-			clearInterval(interval);
-		};
-	});
+  let showLogin = false, loggedIn = false;
 </script>
 
-<style>
-	:global(body) {
-		margin: 0;
-		font-family: Arial, Helvetica, sans-serif;
-	}
-	div code {
-		background: #0002;
-		padding: 4px 8px;
-		border-radius: 4px;
-	}
-	div p {
-		margin: 0.4rem;
-	}
+<div class="h-screen w-full bg-black text-white text-opacity-90 flex justify-center">
+  <div class="mt-14 w-3/5 flex flex-col items-center">
+    {#if loggedIn}
+      <Typewriter interval={47}>
+        <h1 class="text-3xl">Welcome <span class="text-delta-green">{$user}</span> to the <span class="text-5xl text-delta-green">Δ</span> Secure Server</h1>
+      </Typewriter>
 
-	div header {
-		background-color: #f9f6f6;
-		color: #333;
-		min-height: 100vh;
-		font-size: calc(10px + 2vmin);
-	}
-	div a {
-		color: #ff3e00;
-	}
-	div img {
-		height: 36vmin;
-		margin-bottom: 3rem;
-		animation: App-logo-spin infinite 1.6s ease-in-out alternate;
-	}
-	@keyframes App-logo-spin {
-		from {
-			transform: scale(1);
-		}
-		to {
-			transform: scale(1.06);
-		}
-	}
-</style>
+    {:else} <!-- Not Logged in -->
+      <Typewriter interval={47} on:done={() => showLogin = true}>
+        <h1 class="text-3xl">Welcome to the <span class="text-5xl text-delta-green">Δ</span> Secure Server v24.8</h1>
+      </Typewriter>
 
-<div class="text-center">
-	<header class="flex flex-col items-center justify-center">
-		<img src="/logo.svg" alt="logo" class="pointer-events-none" />
-		<p>Edit <code>src/App.svelte</code> and save to reload.</p>
-		<p>Page has been open for <code>{count}</code> seconds.</p>
-		<p>
-			<a href="https://svelte.dev" target="_blank" rel="noopener noreferrer">
-				Learn Svelte
-			</a>
-		</p>
-	</header>
+      {#if showLogin}
+        <LogInForm bind:loggedIn={loggedIn} />
+      {/if}
+    {/if}
+  </div>
 </div>

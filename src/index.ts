@@ -1,7 +1,7 @@
 import App from "./App.svelte";
 import "./styles/Tailwind.css";
 
-var app = new App({
+const app = new App({
 	target: document.body,
 });
 
