@@ -5,6 +5,24 @@ module.exports = {
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    extend: {
+      colors: {
+        dark: {
+          transparent: '#00000021'
+        },
+        coolGray: colors.coolGray,
+        delta: {
+          green: '#00FF33'
+        },
+      },
+      animation: {
+        none: 'none',
+        spin: 'spin 1s linear infinite',
+        ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        bounce: 'bounce 1s infinite',
+      },
+    },
     screens: {
       sm: '640px',
       md: '768px',
@@ -15,9 +33,6 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      delta: {
-        green: '#00FF33'
-      },
       black: colors.black,
       white: colors.white,
       gray: colors.coolGray,

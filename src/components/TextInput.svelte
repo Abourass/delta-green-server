@@ -23,6 +23,6 @@
 <div class="flex content-center">
   <label class="flex flex-row justify-between w-full">
     <span>{label}</span>
-    <input type="text" bind:value={value}>
+    <input type="text" bind:value={value} class="w-44">
   </label>
 </div>

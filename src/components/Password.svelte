@@ -1,6 +1,6 @@
 <script type="ts">
   export let value = '';
-  export let label = 'Password';
+  export let label = 'Pass';
 </script>
 
 <style>
@@ -23,6 +23,6 @@
 <div class="flex content-center">
   <label class="flex flex-row justify-between w-full">
     <span>{label}</span>
-    <input type="password" bind:value={value}>
+    <input type="password" bind:value={value} class="w-44">
   </label>
 </div>

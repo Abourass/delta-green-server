@@ -15,7 +15,7 @@
   };
 </script>
 
-<form class="mt-8 px-8 pt-10 pb-6 rounded-md bg-gray-900 flex flex-col justify-center" on:submit={login}>
+<form class="w-full mt-8 px-8 pt-10 pb-6 rounded-md bg-gray-900 flex flex-col justify-center" on:submit={login}>
   <TextInput type="text" label="User" bind:value={$user}/>
   <Password bind:value={$password} />
   <button
