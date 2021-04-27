@@ -36,12 +36,12 @@
       <br />
       <span class="pl-6">  If you're made, back off. </span>
       <br />
-      <span class="pl-6">  Someone else can kill them later. </span>
+      <span class="pl-6">  Someone else can <span class="text-delta-green">kill them later</span>. </span>
     </li>
     <li>
       <span>35. <span class="text-delta-green">When you don't have enough force to assault the opposition's stronghold, burn it. </span></span>
       <br />
-      <span class="pl-6">  Flush them and ambush their escape route. </span>
+      <span class="pl-6">  Flush them and <span class="text-delta-green">ambush</span> their escape route. </span>
     </li>
   </ol>
 </Typewriter>

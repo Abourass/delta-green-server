@@ -9,7 +9,7 @@
       <br />
       <span class="pl-6">  Remember that in this situation you are working without cover. </span>
       <br />
-      <span class="pl-6">  The host agency's goals are not our goals. </span>
+      <span class="pl-6">  The host agency's goals are <span class="text-delta-green">not our goals</span>. </span>
       <br />
       <span class="pl-6">  You may have to undermine their mission in order to accomplish our mission. </span>
     </li>

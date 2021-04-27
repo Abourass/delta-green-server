@@ -18,8 +18,6 @@
     <li>
       <span>42. <span class="text-delta-green">Never leave teammates behind where the authorities can find them.</span></span>
     </li>
-    Always report back to A-cell.
-
     <li>
       <span>43. <span class="text-delta-green">Always report back to A-cell.</span></span>
       <br />
