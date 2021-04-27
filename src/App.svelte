@@ -6,6 +6,15 @@
   import AxiomPreamble from './components/axioms/AxiomPreamble.svelte';
   import Navigation from './components/Navigation.svelte';
   import Decrypting from './components/Decrypting.svelte';
+  import AxiomTwo from './components/axioms/AxiomTwo.svelte';
+  import AxiomThree from './components/axioms/AxiomThree.svelte';
+  import AxiomControls from './components/axioms/AxiomControls.svelte';
+  import AxiomFour from './components/axioms/AxiomFour.svelte';
+  import AxiomFive from './components/axioms/AxiomFive.svelte';
+  import AxiomSix from './components/axioms/AxiomSix.svelte';
+  import AxiomSeven from './components/axioms/AxiomSeven.svelte';
+  import AxiomEight from './components/axioms/AxiomEight.svelte';
+  import AxiomNine from './components/axioms/AxiomNine.svelte';
 
   let showLogin = false,
     loggedIn = false,
@@ -14,7 +23,8 @@
     axiomPreambleOpen = false,
     axiomReadBtnAvailable = false,
     axiomsOpen = false,
-    axiom = 1;
+    axiom = 1,
+    showAxioms = false;
 
   const lastAxiom = () => {
     if (axiom === 1) {
@@ -77,14 +87,26 @@
       {/if}
 
       {#if axiomsOpen}
-        <Typewriter cascade>
+        <Typewriter cascade on:done={() => {showAxioms = true}}>
           <span class="text-delta-green"> ALPHONSE'S AXIOMS FOR AGENTS </span>
         </Typewriter>
 
-        {#if axiom === 1}
-          <AxiomOne />
+        {#if showAxioms}
+          {#if axiom === 1} <AxiomOne /> {/if}
+          {#if axiom === 2} <AxiomTwo /> {/if}
+          {#if axiom === 3} <AxiomThree /> {/if}
+          {#if axiom === 4} <AxiomFour /> {/if}
+          {#if axiom === 5} <AxiomFive /> {/if}
+          {#if axiom === 6} <AxiomSix /> {/if}
+          {#if axiom === 7} <AxiomSeven /> {/if}
+          {#if axiom === 8} <AxiomEight /> {/if}
+          {#if axiom === 9} <AxiomNine /> {/if}
         {/if}
 
+        <AxiomControls
+          lastFn={lastAxiom}
+          nextFn={nextAxiom}
+        />
       {/if}
 
     {:else} <!-- Not Logged in -->
