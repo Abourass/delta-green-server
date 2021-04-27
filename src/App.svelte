@@ -27,8 +27,8 @@
     showAxioms = false;
 
   const lastAxiom = () => {
-    if (axiom === 9) {
-      axiom = 6;
+    if (axiom === 1) {
+      axiom = 9;
     } else {
       axiom = axiom - 1;
     }
