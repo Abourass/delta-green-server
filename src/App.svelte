@@ -1,14 +1,46 @@
 <script lang="typescript">
-  import { user } from './stores/user';
+  import {user} from './stores/user';
   import Typewriter from 'svelte-typewriter';
   import LogInForm from './components/LogInForm.svelte';
+  import AxiomOne from './components/axioms/AxiomOne.svelte';
+  import AxiomPreamble from './components/axioms/AxiomPreamble.svelte';
+  import Navigation from './components/Navigation.svelte';
+  import Decrypting from './components/Decrypting.svelte';
 
-  let showLogin = false, loggedIn = false, loading = false, loaded = false;
+  let showLogin = false,
+    loggedIn = false,
+    loading = false,
+    navigationOpen = false,
+    axiomPreambleOpen = false,
+    axiomReadBtnAvailable = false,
+    axiomsOpen = false,
+    axiom = 1;
+
+  const lastAxiom = () => {
+    if (axiom === 1) {
+      axiom = 25;
+    } else {
+      axiom = axiom - 1;
+    }
+  }
+
+  const nextAxiom = () => {
+    if (axiom === 25) {
+      axiom = 1
+    } else {
+      axiom = axiom + 1;
+    }
+  }
 </script>
 
 <style>
   :root {
     --cursor-color: white;
+  }
+
+  button:disabled {
+    background: #d0cece;
+    color: black;
   }
 </style>
 
@@ -20,51 +52,39 @@
       </Typewriter>
 
       {#if loading}
-        <Typewriter interval={80} on:done={() => setTimeout(() => {loading = false; loaded = true}, 380)}>
-          <h3 class="text-xl">Files unlocking...</h3>
-        </Typewriter>
+        <Decrypting onFinish={() => setTimeout(() => { loading = false; navigationOpen = true }, 380)} />
       {/if}
 
-      {#if loaded}
+      {#if navigationOpen}
+        <Navigation
+          correspondenceFn={() => { axiomPreambleOpen = true; navigationOpen = false }}
+        />
+      {/if}
+
+      {#if axiomPreambleOpen}
+        <AxiomPreamble onFinish={() => {axiomReadBtnAvailable = true}} />
+
+        {#if axiomReadBtnAvailable}
+          <button
+            type="button"
+            class="rounded bg-gray-700 text-xl p-2 border border-light-blue-500 border-opacity-25"
+            on:click={() => {axiomPreambleOpen = false; axiomsOpen = true;}}
+          >
+            Open Attachment
+            <span class="text-md text-gray-400">(Axioms.txt)</span>
+          </button>
+        {/if}
+      {/if}
+
+      {#if axiomsOpen}
         <Typewriter cascade>
-          <span class="text-delta-green"> Edward, </span>
-          <br />
-          <p> Here are those <span class="text-delta-green">"Rogers' Rules of Ranging"</span> we talked about. </p>
-          <br />
-          <span> I have no idea whether they actually came from <span class="text-delta-green">Alphonse</span>.</span>
-          <br />
-          <span> Writing all this down doesn't seem like the old man's style..</span>
-          <br />
-          <span> Maybe it started with him, but it's been making the rounds a long time.</span>
-          <br />
-          <p>Who knows how many of us have added to it over the years?</p>
-          <br />
-          <span> If you share it with any FNGs, be sure to tell them not to mistake it for intelligence tradecraft. </span>
-          <br />
-          <p> It's tradecraft for <span class="text-delta-green">Delta Green</span> agents on the ground.</p>
-          <br />
-          <span class="text-delta-green">It all comes back to the same old mission:</span>
-          <ul>
-            <li> Find the threat </li>
-            <li> Stop the threat </li>
-            <li> Cover it up so it's like the threat never happened </li>
-          </ul>
-          <br />
           <span class="text-delta-green"> ALPHONSE'S AXIOMS FOR AGENTS </span>
-          <ol>
-            <li>
-              <span>1. The first commandment is, Thou shall not get caught.</span>
-              <br />
-              <span class="pl-6">  You do not have a "get out of jail free" card. You do not have a license to kill. </span>
-              <br />
-              <span class="pl-6">  To the world outside Delta Green, you are a criminal, a terrorist and a traitor.</span>
-              <br />
-              <span class="pl-6">  If you are arrested, you will keep quiet, say nothing and take what's coming.</span>
-              <br />
-              <span class="pl-6">  Getting you out of custody is not A-cell's problem, unless A-cell needs you for something</span>
-            </li>
-          </ol>
         </Typewriter>
+
+        {#if axiom === 1}
+          <AxiomOne />
+        {/if}
+
       {/if}
 
     {:else} <!-- Not Logged in -->
