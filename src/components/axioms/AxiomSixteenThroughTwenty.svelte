@@ -19,14 +19,16 @@
       <span class="pl-6">  Taking live prisoners usually carries more operational hazards than benefits. </span>
     </li>
     <li>
-      <span>18. <span class="text-delta-green">If you do take prisoners and you plan on interrogating them, never leave them together to cook up a story between them</span></span>
+      <span>18. <span class="text-delta-green">If you do take prisoners, never leave them together to cook up a story between them</span></span>
       <br />
       <span class="pl-6">  Unless, of course, you've <span class="text-delta-green">bugged</span> their cell. </span>
     </li>
     <li>
       <span>19. <span class="text-delta-green">Torture rarely works on our brand of opposition.</span></span>
       <br />
-      <span class="pl-6">  Be prepared to find another way in. Look for the opposition's laptops, notepads, cell phones, documents, and journals. </span>
+      <span class="pl-6">  Be prepared to find another way in. </span>
+      <br />
+      <span class="pl-6">  Look for the opposition's laptops, notepads, cell phones, documents, and journals. </span>
       <br />
       <span class="pl-6">  Passwords and encryption are often <span class="text-delta-green">broken</span> more easily and more reliably than men.</span>
     </li>
