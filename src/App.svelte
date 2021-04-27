@@ -2,19 +2,12 @@
   import {user} from './stores/user';
   import Typewriter from 'svelte-typewriter';
   import LogInForm from './components/LogInForm.svelte';
-  import AxiomOne from './components/axioms/AxiomOne.svelte';
   import AxiomPreamble from './components/axioms/AxiomPreamble.svelte';
   import Navigation from './components/Navigation.svelte';
   import Decrypting from './components/Decrypting.svelte';
-  import AxiomTwo from './components/axioms/AxiomTwo.svelte';
-  import AxiomThree from './components/axioms/AxiomThree.svelte';
   import AxiomControls from './components/axioms/AxiomControls.svelte';
-  import AxiomFour from './components/axioms/AxiomFour.svelte';
-  import AxiomFive from './components/axioms/AxiomFive.svelte';
-  import AxiomSix from './components/axioms/AxiomSix.svelte';
-  import AxiomSeven from './components/axioms/AxiomSeven.svelte';
-  import AxiomEight from './components/axioms/AxiomEight.svelte';
-  import AxiomNine from './components/axioms/AxiomNine.svelte';
+  import AxiomOneThroughFive from './components/axioms/AxiomOneThroughFive.svelte';
+  import AxiomSixThroughTen from './components/axioms/AxiomSixThroughTen.svelte';
 
   let showLogin = false,
     loggedIn = false,
@@ -28,14 +21,14 @@
 
   const lastAxiom = () => {
     if (axiom === 1) {
-      axiom = 25;
+      axiom = 4;
     } else {
       axiom = axiom - 1;
     }
   }
 
   const nextAxiom = () => {
-    if (axiom === 25) {
+    if (axiom === 4) {
       axiom = 1
     } else {
       axiom = axiom + 1;
@@ -92,15 +85,10 @@
         </Typewriter>
 
         {#if showAxioms}
-          {#if axiom === 1} <AxiomOne /> {/if}
-          {#if axiom === 2} <AxiomTwo /> {/if}
-          {#if axiom === 3} <AxiomThree /> {/if}
-          {#if axiom === 4} <AxiomFour /> {/if}
-          {#if axiom === 5} <AxiomFive /> {/if}
-          {#if axiom === 6} <AxiomSix /> {/if}
-          {#if axiom === 7} <AxiomSeven /> {/if}
-          {#if axiom === 8} <AxiomEight /> {/if}
-          {#if axiom === 9} <AxiomNine /> {/if}
+          {#if axiom === 1} <AxiomOneThroughFive /> {/if}
+          {#if axiom === 2} <AxiomSixThroughTen /> {/if}
+          {#if axiom === 3} <AxiomOneThroughFive /> {/if}
+          {#if axiom === 4} <AxiomSixThroughTen /> {/if}
         {/if}
 
         <AxiomControls
