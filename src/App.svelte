@@ -26,6 +26,16 @@
     axiom = 1,
     showAxioms = false;
 
+  const jumpToNavigation = () => {
+    if (loading) loading = false;
+    if (axiomPreambleOpen) axiomPreambleOpen = false;
+    if (axiomReadBtnAvailable) axiomReadBtnAvailable = false;
+    if (axiomsOpen) axiomsOpen = false;
+    if (showAxioms) showAxioms = false;
+    axiom = 1;
+    navigationOpen = true;
+  }
+
   const lastAxiom = () => {
     if (axiom === 1) {
       axiom = 9;
@@ -58,7 +68,13 @@
   <div class="mt-14 w-9/12 lg:w-3/5 xl:w-2/5 flex flex-col items-center">
     {#if loggedIn}
       <Typewriter interval={47} on:done={() => loading = true}>
-        <h1 class="text-3xl mb-5">Welcome <span class="text-delta-green">{$user}</span> to the <span class="text-5xl text-delta-green">Δ</span> Secure Server</h1>
+        <h1 class="text-3xl mb-5">
+          Welcome
+          <span class="text-delta-green">{$user}</span>
+          to the
+          <span class="text-5xl text-delta-green cursor-pointer" on:click={jumpToNavigation}>Δ</span>
+          Secure Server
+        </h1>
       </Typewriter>
 
       {#if loading}
