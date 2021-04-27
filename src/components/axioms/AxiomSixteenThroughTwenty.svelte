@@ -5,39 +5,37 @@
 <Typewriter cascade interval={20}>
   <ol>
     <li>
-      <span>16. <span class="text-delta-green">Never do anything alone.</span></span>
+      <span>16. <span class="text-delta-green">Don't wait until you see the whites of their eyes.</span></span>
       <br />
-      <span class="pl-6">  Always have someone watch your back. </span>
+      <span class="pl-6">  If firearms have <span class="text-delta-green">no effect</span>, it's best to find that out </span>
       <br />
-      <span class="pl-6">  When you are sleeping, pissing, eating, <span class="text-delta-green">searching</span> a location, interviewing a witness, </span>
-      <br />
-      <span class="pl-6">  or when your nose is buried in research, have someone watching your six. </span>
+      <span class="pl-6">  while you still have the time and the space to break contact. </span>
     </li>
     <li>
-      <span>17. <span class="text-delta-green">Always establish a rally point in case the team has to scatter and regroup.</span></span>
+      <span>17. <span class="text-delta-green">Give no "fair warnings."</span></span>
       <br />
-      <span class="pl-6">  The rally point should be tactically advantageous in the event that not everyone manages to shake pursuers and the opportunity arises to ambush them. </span>
+      <span class="pl-6">  <span class="text-delta-green">Surprise</span> is the only advantage you have. </span>
       <br />
-      <span class="pl-6">  The rally point should be pre-stocked with anything you need to <span class="text-delta-green">escape</span> the opposition: money, travel documents, a spare vehicle if you can manage it. </span>
+      <span class="pl-6">  Taking live prisoners usually carries more operational hazards than benefits. </span>
     </li>
     <li>
-      <span>18. <span class="text-delta-green">If you're attacked, break contact.</span></span>
+      <span>18. <span class="text-delta-green">If you do take prisoners and you plan on interrogating them, never leave them together to cook up a story between them</span></span>
       <br />
-      <span class="pl-6">  Do not stand and fight when the opposition has the initiative. </span>
-      <br />
-      <span class="pl-6">  Retreat, regroup at the rally point, go back later and <span class="text-delta-green">kill them in their sleep.</span> </span>
+      <span class="pl-6">  Unless, of course, you've <span class="text-delta-green">bugged</span> their cell. </span>
     </li>
     <li>
-      <span>19. <span class="text-delta-green">Any operation can be aborted.</span></span>
+      <span>19. <span class="text-delta-green">Torture rarely works on our brand of opposition.</span></span>
       <br />
-      <span class="pl-6">  If it feels wrong, <span class="text-delta-green">it is wrong</span> </span>
+      <span class="pl-6">  Be prepared to find another way in. Look for the opposition's laptops, notepads, cell phones, documents, and journals. </span>
+      <br />
+      <span class="pl-6">  Passwords and encryption are often <span class="text-delta-green">broken</span> more easily and more reliably than men.</span>
     </li>
     <li>
-      <span>20. <span class="text-delta-green">Never take a chance if you don't have to.</span></span>
+      <span>20. <span class="text-delta-green">Assume nothing.</span></span>
       <br />
-      <span class="pl-6">  You are harder to <span class="text-delta-green">replace</span> than you think. </span>
+      <span class="pl-6">  <span class="text-delta-green">Don't believe</span> what you are told. </span>
       <br />
-      <span class="pl-6">  Your death, injury or disappearance will be difficult to explain. </span>
+      <span class="pl-6">  Double-check it yourself. </span>
     </li>
   </ol>
 </Typewriter>
