@@ -6,6 +6,7 @@
 <Typewriter cascade on:done={onFinish}>
   <span class="text-delta-green"> Ȩ̶̥͈̭̤̖̭͘ḑ̶̰̼̗̺̟͈̲͍͎́͒̔́̌̿͛̚ẅ̶̖̥̙̞̯̱̱́͌̐̈̇̏ả̷̝̂̈́̐r̸̡̨̭̦̻͙̲̼̯͎͛̊̇̊̃͝͝d̶̛̬̣̰̃́́́̕͝, </span>
   <br />
+  <br />
   <p> Here are those <span class="text-delta-green">"Rogers' Rules of Ranging"</span> we talked about. </p>
   <br />
   <span> I have no idea whether they actually came from <span class="text-delta-green">Alphonse</span>.</span>
