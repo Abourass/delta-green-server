@@ -9,6 +9,7 @@
   import AxiomOneThroughFive from './components/axioms/AxiomOneThroughFive.svelte';
   import AxiomSixThroughTen from './components/axioms/AxiomSixThroughTen.svelte';
   import AxiomElevenThroughFifteen from './components/axioms/AxiomElevenThroughFifteen.svelte';
+  import AxiomSixteenThroughTwenty from './components/axioms/AxiomSixteenThroughTwenty.svelte';
 
   let showLogin = false,
     loggedIn = false,
@@ -89,7 +90,7 @@
           {#if axiom === 1} <AxiomOneThroughFive /> {/if}
           {#if axiom === 2} <AxiomSixThroughTen /> {/if}
           {#if axiom === 3} <AxiomElevenThroughFifteen /> {/if}
-          {#if axiom === 4} <AxiomSixThroughTen /> {/if}
+          {#if axiom === 4} <AxiomSixteenThroughTwenty /> {/if}
         {/if}
 
         <AxiomControls
