@@ -15,9 +15,9 @@
   import AxiomThirtyOneThroughThirtyFive from './components/axioms/AxiomThirtyOneThroughThirtyFive.svelte';
   import AxiomThirtySixThoughFourty from './components/axioms/AxiomThirtySixThoughFourty.svelte';
   import AxiomFourtyOneThroughFortyFour from './components/axioms/AxiomFourtyOneThroughFortyFour.svelte';
-  import LoopDecode from './components/effects/LoopDecode.svelte';
 
   let showLogin = false,
+    showTypedHeader = true,
     loggedIn = false,
     loading = false,
     navigationOpen = false,
@@ -28,6 +28,7 @@
     showAxioms = false;
 
   const jumpToNavigation = () => {
+    console.log('Jumping...')
     if (loading) loading = false;
     if (axiomPreambleOpen) axiomPreambleOpen = false;
     if (axiomReadBtnAvailable) axiomReadBtnAvailable = false;
@@ -68,12 +69,19 @@
 <div class="h-screen w-full bg-black text-white text-opacity-90 flex justify-center">
   <div class="mt-14 w-9/12 lg:w-3/5 xl:w-2/5 flex flex-col items-center">
     {#if loggedIn}
-      <Typewriter interval={47} on:done={() => loading = true}>
+      {#if showTypedHeader}
+      <Typewriter interval={47} on:done={() => {loading = true; showTypedHeader = false;}}>
+        <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green">{$user}</span> to the
+          <span class="text-5xl text-delta-green cursor-pointer">Δ</span>
+          Secure Server
+        </h1>
+      </Typewriter>
+      {:else}
         <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green">{$user}</span> to the
           <span class="text-5xl text-delta-green cursor-pointer" on:click={jumpToNavigation}>Δ</span>
           Secure Server
         </h1>
-      </Typewriter>
+      {/if}
 
       {#if loading}
         <Decrypting onFinish={() => setTimeout(() => { loading = false; navigationOpen = true }, 380)} />

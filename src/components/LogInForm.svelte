@@ -9,7 +9,6 @@
 
   const login = (event) => {
     event.preventDefault();
-    console.log({ user: $user, password: $password })
     const records = Agents.filter((agent) => (agent.user === $user && agent.password === $password));
     if (records.length === 1) loggedIn = true;
   };
