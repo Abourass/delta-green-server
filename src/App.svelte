@@ -28,7 +28,6 @@
     showAxioms = false;
 
   const jumpToNavigation = () => {
-    console.log('Jumping...')
     if (loading) loading = false;
     if (axiomPreambleOpen) axiomPreambleOpen = false;
     if (axiomReadBtnAvailable) axiomReadBtnAvailable = false;
