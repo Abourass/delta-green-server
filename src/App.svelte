@@ -55,7 +55,7 @@
 </script>
 
 <style>
-  :global(:root) {
+  :global(*) {
     --cursor-color: white !important;
   }
 
