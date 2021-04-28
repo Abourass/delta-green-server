@@ -3,7 +3,13 @@
   export let nextFn;
 </script>
 
-<div class="flex flex-row justify-around w-2/3 mt-4">
+<style>
+  .to-bottom {
+    top: 73vh;
+  }
+</style>
+
+<div class="flex flex-row justify-around w-2/3 mt-4 fixed to-bottom">
   <button
     type="button"
     class="rounded bg-gray-700 text-xl p-2 border border-light-blue-500 border-opacity-25"
