@@ -173,7 +173,7 @@
 
       {#if axiomsOpen} <!-- Triggers when they first open the axioms attachment -->
         <Typewriter cascade on:done={() => {showAxioms = true}}>
-          <span class="text-delta-green"> ALPHONSE'S AXIOMS FOR AGENTS </span>
+          <span class="text-delta-green text-lg"> ALPHONSE'S AXIOMS FOR AGENTS </span>
         </Typewriter>
 
         {#if showAxioms} <!-- Triggers after the title is displayed -->
