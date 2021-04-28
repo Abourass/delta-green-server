@@ -1,12 +1,16 @@
-<h1 align="center">Welcome to delta-green-server 👋</h1>
+<h1 align="center">Welcome to DGS 👋</h1>
 <p>
 </p>
 
 > A (fictional) Delta Green BBS
 
-### 🏠 [Homepage](https://elegant-jang-3eefb2.netlify.app/)
 
-### ✨ [Demo](https://elegant-jang-3eefb2.netlify.app/)
+### ✨ [Demo (User: `newAgent`, Pass: `***`)](https://elegant-jang-3eefb2.netlify.app/)
+
+I made this as prop for my Delta Green game, and figured I'd share. If you want to run your own version, simply for this repo, then in your repo change `/src/Agents.ts` to add give players custom logins.
+
+To deploy quickly I recommend Netlify! 
+
 
 ## Install
 
@@ -14,7 +18,7 @@
 npm install
 ```
 
-## Usage
+## Start Development Server
 
 ```sh
 npm run start
@@ -24,7 +28,7 @@ npm run start
 
 👤 **Antonio Bourassa**
 
-* Website:  
+
 * Github: [@Abourass](https://github.com/Abourass)
 
 ## Show your support
