@@ -4,6 +4,7 @@
 </script>
 
 <Typewriter cascade on:done={onFinish}>
+  <br />
   <span class="text-delta-green"> Ȩ̶̥͈̭̤̖̭͘ḑ̶̰̼̗̺̟͈̲͍͎́͒̔́̌̿͛̚ẅ̶̖̥̙̞̯̱̱́͌̐̈̇̏ả̷̝̂̈́̐r̸̡̨̭̦̻͙̲̼̯͎͛̊̇̊̃͝͝d̶̛̬̣̰̃́́́̕͝, </span>
   <br />
   <br />

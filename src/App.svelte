@@ -56,15 +56,7 @@
 
 <style>
   :global(:root) {
-    --cursor-color: white;
-  }
-
-  :global(button) {
-    font-family: 'Times Pixelated 24', 'Times New Roman', serif;
-  }
-
-  :global(input){
-    font-family: 'Times Pixelated 16', 'Times New Roman', serif;
+    --cursor-color: white !important;
   }
 
   button:disabled {
@@ -72,17 +64,25 @@
     color: black;
   }
 
-  :global(span), :global(p) {
-    font-family: 'Times Pixelated 16', 'Times New Roman', serif;
+  :global(.times32) {
+    font-family: 'Times Pixelated 32', 'Times New Roman', serif;
+  }
+
+  :global(button), :global(h1), :global(.arial16) {
+    font-family: 'Arial Pixelated 16', 'Arial' !important;
   }
 
   :global(.times24) {
-    font-family: 'Times Pixelated 24', 'Times New Roman', serif;
+    font-family: 'Times Pixelated 24', 'Times New Roman', serif !important;
+  }
+
+  :global(span), :global(p), :global(input), :global(li), :global(.times16) {
+    font-family: 'Times Pixelated 16', 'Times New Roman', serif;
   }
 
   @font-face {
-    font-family: "Courier Pixelated 16";
-    src: url(/fonts/COUR.TTF-16-Regular.woff) format("woff");
+    font-family: "Arial Pixelated 16";
+    src: url(/fonts/ARIAL.TTF-16-Regular.woff) format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap
@@ -119,6 +119,14 @@
     font-style: normal;
     font-display: swap
   }
+
+  @font-face {
+    font-family: "Times Pixelated 32";
+    src: url(/fonts/TIMES.TTF-32-Regular.woff) format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+  }
 </style>
 
 <div class="h-screen w-full bg-black text-white text-opacity-90 flex justify-center">
@@ -132,7 +140,7 @@
         </h1>
       </Typewriter>
       {:else}
-        <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green">{$user}</span> to the
+        <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green times32">{$user}</span> to the
           <span class="text-5xl text-delta-green cursor-pointer" on:click={jumpToNavigation}>Δ</span>
           Secure Server
         </h1>
