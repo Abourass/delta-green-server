@@ -11,7 +11,7 @@
     'Edward',
     'Eugene',
     'Sawyer',
-    'Kellan',
+    'Kellen',
     'Pascal',
     'Virgil'
   ];
@@ -21,6 +21,7 @@
   let keyToDecode = writable(0);
   let shownFinishedFor = writable(0);
   let fadedFor = writable(0);
+  let length = writable(keys[0].length);
 
   export const loopDecode = (str: string, decodeKeys: Array<string>) => {
     if (!keysAreSameLength(decodeKeys)) throw new TypeError('All keys must be the same length of characters!');
@@ -36,7 +37,8 @@
       $shownFinishedFor = 0;
       $fadedFor = 0;
       finished = false
-      str = randomChar(key.length)
+      str = randomChar($length);
+
       if ($keyToDecode === decodeKeys.length - 1){
         $keyToDecode = 0;
       } else {
