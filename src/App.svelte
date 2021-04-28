@@ -55,13 +55,69 @@
 </script>
 
 <style>
-  :root {
+  :global(:root) {
     --cursor-color: white;
+  }
+
+  :global(button) {
+    font-family: 'Times Pixelated 24', 'Times New Roman', serif;
+  }
+
+  :global(input){
+    font-family: 'Times Pixelated 16', 'Times New Roman', serif;
   }
 
   button:disabled {
     background: #d0cece;
     color: black;
+  }
+
+  :global(span), :global(p) {
+    font-family: 'Times Pixelated 16', 'Times New Roman', serif;
+  }
+
+  :global(.times24) {
+    font-family: 'Times Pixelated 24', 'Times New Roman', serif;
+  }
+
+  @font-face {
+    font-family: "Courier Pixelated 16";
+    src: url(/fonts/COUR.TTF-16-Regular.woff) format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: "Times Pixelated 16";
+    src: url(/fonts/TIMES.TTF-16-Regular.woff) format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: "Times Pixelated 16";
+    src: url(/fonts/TIMESI.TTF-16-Italic.woff) format("woff");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: "Times Pixelated 16";
+    src: url(/fonts/TIMESBD.TTF-16-Bold.woff) format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: "Times Pixelated 24";
+    src: url(/fonts/TIMES.TTF-24-Regular.woff) format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
   }
 </style>
 
@@ -70,7 +126,7 @@
     {#if loggedIn}
       {#if showTypedHeader}
       <Typewriter interval={47} on:done={() => {loading = true; showTypedHeader = false;}}>
-        <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green">{$user}</span> to the
+        <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green times24">{$user}</span> to the
           <span class="text-5xl text-delta-green cursor-pointer">Δ</span>
           Secure Server
         </h1>
