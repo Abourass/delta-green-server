@@ -15,6 +15,7 @@
   import AxiomThirtyOneThroughThirtyFive from './components/axioms/AxiomThirtyOneThroughThirtyFive.svelte';
   import AxiomThirtySixThoughFourty from './components/axioms/AxiomThirtySixThoughFourty.svelte';
   import AxiomFourtyOneThroughFortyFour from './components/axioms/AxiomFourtyOneThroughFortyFour.svelte';
+  import LoopDecode from './components/effects/LoopDecode.svelte';
 
   let showLogin = false,
     loggedIn = false,
@@ -68,10 +69,7 @@
   <div class="mt-14 w-9/12 lg:w-3/5 xl:w-2/5 flex flex-col items-center">
     {#if loggedIn}
       <Typewriter interval={47} on:done={() => loading = true}>
-        <h1 class="text-3xl mb-5">
-          Welcome
-          <span class="text-delta-green">{$user}</span>
-          to the
+        <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green">{$user}</span> to the
           <span class="text-5xl text-delta-green cursor-pointer" on:click={jumpToNavigation}>Δ</span>
           Secure Server
         </h1>

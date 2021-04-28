@@ -1,8 +1,11 @@
 <script type="ts">
   import Typewriter from 'svelte-typewriter';
+  import LoopDecode from '../effects/LoopDecode.svelte';
+
+  let showFrom = false
 </script>
 
-<Typewriter cascade interval={20}>
+<Typewriter cascade interval={20} on:done={() => showFrom = true}>
   <ol>
     <li>
       <span>41. <span class="text-delta-green">Do not use any system of planar manipulation that could be taken for actual magic.</span></span>
@@ -31,7 +34,8 @@
   </ol>
   <br />
   <br />
-  <span>
-    -̵̪̮̖͚́̎̔-̴̞͇͓̖̺̯̃̄̀͐̓D̴̛̮̺͔͖̮̘͚͇̞̩̱̋̔͌ĭ̶̢͎͎̯͍̱͕̫͖̙̻ͅͅl̴̡͍̹̙̬̙̋l̸̨̡̯̉͑̂͛̓͌̾o̴̹͛̓̎͋̐͠ņ̷̢̡̱͈̹̻͖̺̯̘͈̒͑̇̇͘
-  </span>
 </Typewriter>
+
+{#if showFrom}
+--<LoopDecode />
+{/if}

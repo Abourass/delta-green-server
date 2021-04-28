@@ -5,6 +5,7 @@
     "ts-check": "svelte-check"
   },
   "dependencies": {
+    "lunicode": "^2.0.1",
     "svelte": "^3.32.1",
     "svelte-typewriter": "^2.4.5"
   },
