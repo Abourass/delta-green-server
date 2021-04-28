@@ -3,6 +3,7 @@
 </script>
 
 <Typewriter cascade interval={20}>
+  <br />
   <ol>
     <li>
       <span>36. <span class="text-delta-green">Use your pre-paid burner cell phone.</span></span>
@@ -15,16 +16,19 @@
       <br />
       <span class="pl-6">  You shouldn't be calling anyone else during an Opera. </span>
     </li>
+    <br />
     <li>
       <span>37. <span class="text-delta-green">Cell phones are tracked by employers and family alike.</span></span>
       <br />
       <span class="pl-6">   Make sure your personal cell phone is wherever your cover story says <span class="text-delta-green">you are supposed to be</span>. </span>
     </li>
+    <br />
     <li>
       <span>38. <span class="text-delta-green">You're safer if you never get out of range of encrypted radio with your teammates.</span></span>
       <br />
       <span class="pl-6">  You're <span class="text-delta-green">safest</span> if you never get out of each others' sight. </span>
     </li>
+    <br />
     <li>
       <span>39. <span class="text-delta-green">Use old cars.</span></span>
       <br />
@@ -32,6 +36,7 @@
       <br />
       <span class="pl-6">  Manual everything, if you can get it. </span>
     </li>
+    <br />
     <li>
       <span>40. <span class="text-delta-green">Never bring anything to the Opera if you can't drop it and walk away. </span></span>
       <br />

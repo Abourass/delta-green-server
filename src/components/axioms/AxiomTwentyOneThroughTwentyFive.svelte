@@ -3,12 +3,14 @@
 </script>
 
 <Typewriter cascade interval={20}>
+  <br />
   <ol>
     <li>
       <span>21. <span class="text-delta-green">Everyone is always potentially under control by the opposition.</span></span>
       <br />
       <span class="pl-6">  Including your <span class="text-delta-green">teammates</span>. </span>
     </li>
+    <br />
     <li>
       <span>22. <span class="text-delta-green">Don't harass the opposition.</span></span>
       <br />
@@ -18,6 +20,7 @@
       <br />
       <span class="pl-6">  Be utterly ruthless. </span>
     </li>
+    <br />
     <li>
       <span>23. <span class="text-delta-green">Don't ever go into any place if you don't know how to get out.</span></span>
       <br />
@@ -27,10 +30,11 @@
       <br />
       <span class="pl-6">  Establish your line of <span class="text-delta-green">retreat first</span>. </span>
     </li>
+    <br />
     <li>
       <span>24. <span class="text-delta-green"> Always take a different route getting out than you took going in.</span></span>
-      <br />
     </li>
+    <br />
     <li>
       <span>25. <span class="text-delta-green">Think carefully before you steer law enforcement officers toward the opposition.</span></span>
       <br />

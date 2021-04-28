@@ -6,6 +6,7 @@
 </script>
 
 <Typewriter cascade interval={20} on:done={() => showFrom = true}>
+  <br />
   <ol>
     <li>
       <span>41. <span class="text-delta-green">Do not use any system of planar manipulation that could be taken for actual magic.</span></span>
@@ -18,14 +19,17 @@
       <br />
       <span class="pl-6">  The consequences are far preferable to having A-Cell find out later that you kept it a secret. </span>
     </li>
+    <br />
     <li>
       <span>42. <span class="text-delta-green">Never leave teammates behind where the authorities can find them.</span></span>
     </li>
+    <br />
     <li>
       <span>43. <span class="text-delta-green">Always report back to A-cell.</span></span>
       <br />
       <span class="pl-6">  Even if that means leaving your team to <span class="text-delta-green">die</span>. </span>
     </li>
+    <br />
     <li>
       <span>44. <span class="text-delta-green">If you are successful, you won't have to explain your actions to A-Cell.</span></span>
       <br />

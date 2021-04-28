@@ -3,6 +3,7 @@
 </script>
 
 <Typewriter cascade interval={20}>
+  <br />
   <ol>
     <li>
       <span>26. <span class="text-delta-green">When embedded with an agency that is pursuing its legitimate remit, act with extreme caution.</span></span>
@@ -13,6 +14,7 @@
       <br />
       <span class="pl-6">  You may have to undermine their mission in order to accomplish our mission. </span>
     </li>
+    <br />
     <li>
       <span>27. <span class="text-delta-green">Recognize when it's time to call A-cell for help, especially when embedded in a legitimate investigation.</span></span>
       <br />
@@ -22,16 +24,19 @@
       <br />
       <span class="pl-6">  Don't marry the mission. </span>
     </li>
+    <br />
     <li>
       <span>28. <span class="text-delta-green">Always check the nearest Green Box and stock it with leftover supplies.</span></span>
       <br />
       <span class="pl-6">  If there isn't a <span class="text-delta-green">Green Box</span> nearby, create one. </span>
     </li>
+    <br />
     <li>
       <span>29. <span class="text-delta-green">Don't lose a tail until you arrange for someone to follow those following you.</span></span>
       <br />
       <span class="pl-6">  Find out <span class="text-delta-green">where they go</span> and what they do. </span>
     </li>
+    <br />
     <li>
       <span>30. <span class="text-delta-green">Never start shooting until you identify the opposition and confirm their numbers and capabilities. </span></span>
     </li>
