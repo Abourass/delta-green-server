@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "lunicode": "^2.0.1",
-    "svelte": "^3.32.1",
+    "svelte": "^3.49.0",
     "svelte-typewriter": "^2.4.5"
   },
   "devDependencies": {
