@@ -23,7 +23,7 @@
     "postcss-import": "^15.0.0",
     "postcss-load-config": "^4.0.1",
     "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.8.0",
+    "prettier-plugin-svelte": "^2.9.0",
     "snowpack": "^3.8.8",
     "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
