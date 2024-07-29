@@ -4,13 +4,11 @@
 
 > A (fictional) Delta Green BBS
 
-
 ### ✨ [Demo (User: `newAgent`, Pass: `***`)](https://elegant-jang-3eefb2.netlify.app/)
 
 I made this as prop for my Delta Green game, and figured I'd share. If you want to run your own version, simply for this repo, then in your repo change `/src/Agents.ts` to add give players custom logins.
 
-To deploy quickly I recommend Netlify! 
-
+To deploy quickly I recommend Netlify!
 
 ## Install
 
@@ -27,7 +25,6 @@ npm run start
 ## Author
 
 👤 **Antonio Bourassa**
-
 
 * Github: [@Abourass](https://github.com/Abourass)
 
