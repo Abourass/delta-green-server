@@ -21,7 +21,7 @@
     "postcss": "^8.4.40",
     "postcss-cli": "^10.1.0",
     "postcss-import": "^15.1.0",
-    "postcss-load-config": "^4.0.1",
+    "postcss-load-config": "^6.0.1",
     "prettier": "^3.3.2",
     "prettier-plugin-svelte": "^2.9.0",
     "snowpack": "^3.8.8",
