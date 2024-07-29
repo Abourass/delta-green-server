@@ -1,19 +1,14 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: ["./src/**/*.html", "./src/**/*.svelte"],
+  content: ["./src/**/*.{svelte,html,ts}"],
   presets: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media',
   theme: {
     extend: {
       colors: {
-        dark: {
-          transparent: '#00000021'
-        },
-        coolGray: colors.coolGray,
-        delta: {
-          green: '#00FF33'
-        },
+        dark: { transparent: '#00000021' },
+        delta: { green: '#00FF33' },
       },
       animation: {
         none: 'none',
@@ -35,7 +30,7 @@ module.exports = {
       current: 'currentColor',
       black: colors.black,
       white: colors.white,
-      gray: colors.coolGray,
+      gray: colors.gray,
       red: colors.red,
       yellow: colors.amber,
       green: colors.emerald,
