@@ -1,6 +1,12 @@
 {
-	"name": "delta-green-server-1",
+	"name": "delta-green-server",
 	"version": "0.0.1",
+	"authors": [
+		{
+			"name": "Antonio B.",
+			"email": "Abourassa@AssetVal.com"
+		}
+	],
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
