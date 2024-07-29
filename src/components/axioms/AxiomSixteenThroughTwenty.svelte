@@ -6,43 +6,43 @@
   <br />
   <ol>
     <li>
-      <span>16. <span class="text-delta-green">Don't wait until you see the whites of their eyes.</span></span>
+      <p>16. <span class="text-delta-green">Don't wait until you see the whites of their eyes.</span></p>
       <br />
-      <span class="pl-6">  If firearms have <span class="text-delta-green">no effect</span>, it's best to find that out </span>
+      <p class="pl-6">  If firearms have <span class="text-delta-green">no effect</span>, it's best to find that out </p>
       <br />
-      <span class="pl-6">  while you still have the time and the space to break contact. </span>
+      <p class="pl-6">  while you still have the time and the space to break contact. </p>
     </li>
     <br />
     <li>
-      <span>17. <span class="text-delta-green">Give no "fair warnings."</span></span>
+      <p>17. <span class="text-delta-green">Give no "fair warnings."</span></p>
       <br />
-      <span class="pl-6">  <span class="text-delta-green">Surprise</span> is the only advantage you have. </span>
+      <p class="pl-6">  <span class="text-delta-green">Surprise</span> is the only advantage you have. </p>
       <br />
-      <span class="pl-6">  Taking live prisoners usually carries more operational hazards than benefits. </span>
+      <p class="pl-6">  Taking live prisoners usually carries more operational hazards than benefits. </p>
     </li>
     <br />
     <li>
-      <span>18. <span class="text-delta-green">If you do take prisoners, never leave them together to cook up a story between them</span></span>
+      <p>18. <span class="text-delta-green">If you do take prisoners, never leave them together to cook up a story between them</span></p>
       <br />
-      <span class="pl-6">  Unless, of course, you've <span class="text-delta-green">bugged</span> their cell. </span>
+      <p class="pl-6">  Unless, of course, you've <span class="text-delta-green">bugged</span> their cell. </p>
     </li>
     <br />
     <li>
-      <span>19. <span class="text-delta-green">Torture rarely works on our brand of opposition.</span></span>
+      <p>19. <span class="text-delta-green">Torture rarely works on our brand of opposition.</span></p>
       <br />
-      <span class="pl-6">  Be prepared to find another way in. </span>
+      <p class="pl-6">  Be prepared to find another way in. </p>
       <br />
-      <span class="pl-6">  Look for the opposition's laptops, notepads, cell phones, documents, and journals. </span>
+      <p class="pl-6">  Look for the opposition's laptops, notepads, cell phones, documents, and journals. </p>
       <br />
-      <span class="pl-6">  Passwords and encryption are often <span class="text-delta-green">broken</span> more easily and more reliably than men.</span>
+      <p class="pl-6">  Passwords and encryption are often <span class="text-delta-green">broken</span> more easily and more reliably than men.</p>
     </li>
     <br />
     <li>
-      <span>20. <span class="text-delta-green">Assume nothing.</span></span>
+      <p>20. <span class="text-delta-green">Assume nothing.</span></p>
       <br />
-      <span class="pl-6">  <span class="text-delta-green">Don't believe</span> what you are told. </span>
+      <p class="pl-6">  <span class="text-delta-green">Don't believe</span> what you are told. </p>
       <br />
-      <span class="pl-6">  Double-check it yourself. </span>
+      <p class="pl-6">  Double-check it yourself. </p>
     </li>
   </ol>
 </Typewriter>

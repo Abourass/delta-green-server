@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  content: ["./src/**/*.{svelte,html,ts}"],
+  content: ["./src/**/*.{svelte,js,html,ts}"],
   presets: [],
   darkMode: 'media',
   theme: {
@@ -28,6 +28,7 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
+      zinc: colors.zinc,
       black: colors.black,
       white: colors.white,
       gray: colors.gray,

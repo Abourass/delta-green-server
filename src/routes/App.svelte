@@ -1,20 +1,20 @@
 <script lang="typescript">
-  import {user} from './stores/user';
+  import {user} from '../stores/user';
   import Typewriter from 'svelte-typewriter';
-  import LogInForm from './components/LogInForm.svelte';
-  import AxiomPreamble from './components/axioms/AxiomPreamble.svelte';
-  import Navigation from './components/Navigation.svelte';
-  import Decrypting from './components/Decrypting.svelte';
-  import AxiomControls from './components/axioms/AxiomControls.svelte';
-  import AxiomOneThroughFive from './components/axioms/AxiomOneThroughFive.svelte';
-  import AxiomSixThroughTen from './components/axioms/AxiomSixThroughTen.svelte';
-  import AxiomElevenThroughFifteen from './components/axioms/AxiomElevenThroughFifteen.svelte';
-  import AxiomSixteenThroughTwenty from './components/axioms/AxiomSixteenThroughTwenty.svelte';
-  import AxiomTwentyOneThroughTwentyFive from './components/axioms/AxiomTwentyOneThroughTwentyFive.svelte';
-  import AxiomTwentySixThroughThirty from './components/axioms/AxiomTwentySixThroughThirty.svelte';
-  import AxiomThirtyOneThroughThirtyFive from './components/axioms/AxiomThirtyOneThroughThirtyFive.svelte';
-  import AxiomThirtySixThoughFourty from './components/axioms/AxiomThirtySixThoughFourty.svelte';
-  import AxiomFourtyOneThroughFortyFour from './components/axioms/AxiomFourtyOneThroughFortyFour.svelte';
+  import LogInForm from '../components/LogInForm.svelte';
+  import AxiomPreamble from '../components/axioms/AxiomPreamble.svelte';
+  import Navigation from '../components/Navigation.svelte';
+  import Decrypting from '../components/Decrypting.svelte';
+  import AxiomControls from '../components/axioms/AxiomControls.svelte';
+  import AxiomOneThroughFive from '../components/axioms/AxiomOneThroughFive.svelte';
+  import AxiomSixThroughTen from '../components/axioms/AxiomSixThroughTen.svelte';
+  import AxiomElevenThroughFifteen from '../components/axioms/AxiomElevenThroughFifteen.svelte';
+  import AxiomSixteenThroughTwenty from '../components/axioms/AxiomSixteenThroughTwenty.svelte';
+  import AxiomTwentyOneThroughTwentyFive from '../components/axioms/AxiomTwentyOneThroughTwentyFive.svelte';
+  import AxiomTwentySixThroughThirty from '../components/axioms/AxiomTwentySixThroughThirty.svelte';
+  import AxiomThirtyOneThroughThirtyFive from '../components/axioms/AxiomThirtyOneThroughThirtyFive.svelte';
+  import AxiomThirtySixThoughFourty from '../components/axioms/AxiomThirtySixThoughFourty.svelte';
+  import AxiomFourtyOneThroughFortyFour from '../components/axioms/AxiomFourtyOneThroughFortyFour.svelte';
 
   let showLogin = false,
     showTypedHeader = true,
@@ -55,77 +55,9 @@
 </script>
 
 <style>
-  :global(*) {
-    --cursor-color: white !important;
-  }
-
   button:disabled {
     background: #d0cece;
     color: black;
-  }
-
-  :global(.times32) {
-    font-family: 'Times Pixelated 32', 'Times New Roman', serif;
-  }
-
-  :global(button), :global(h1), :global(.arial16) {
-    font-family: 'Arial Pixelated 16', 'Arial' !important;
-  }
-
-  :global(.times24) {
-    font-family: 'Times Pixelated 24', 'Times New Roman', serif !important;
-  }
-
-  :global(span), :global(p), :global(input), :global(li), :global(.times16) {
-    font-family: 'Times Pixelated 16', 'Times New Roman', serif;
-  }
-
-  @font-face {
-    font-family: "Arial Pixelated 16";
-    src: url(/fonts/ARIAL.TTF-16-Regular.woff) format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap
-  }
-
-  @font-face {
-    font-family: "Times Pixelated 16";
-    src: url(/fonts/TIMES.TTF-16-Regular.woff) format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap
-  }
-
-  @font-face {
-    font-family: "Times Pixelated 16";
-    src: url(/fonts/TIMESI.TTF-16-Italic.woff) format("woff");
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap
-  }
-
-  @font-face {
-    font-family: "Times Pixelated 16";
-    src: url(/fonts/TIMESBD.TTF-16-Bold.woff) format("woff");
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap
-  }
-
-  @font-face {
-    font-family: "Times Pixelated 24";
-    src: url(/fonts/TIMES.TTF-24-Regular.woff) format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap
-  }
-
-  @font-face {
-    font-family: "Times Pixelated 32";
-    src: url(/fonts/TIMES.TTF-32-Regular.woff) format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap
   }
 </style>
 
@@ -141,7 +73,7 @@
       </Typewriter>
       {:else}
         <h1 class="text-3xl mb-5"> Welcome <span class="text-delta-green times32">{$user}</span> to the
-          <span class="text-5xl text-delta-green cursor-pointer" on:click={jumpToNavigation}>Δ</span>
+          <button class="text-5xl text-delta-green cursor-pointer" on:click={jumpToNavigation}>Δ</button>
           Secure Server
         </h1>
       {/if}
@@ -162,7 +94,7 @@
         {#if axiomReadBtnAvailable}
           <button
             type="button"
-            class="rounded bg-gray-700 text-xl p-2 border border-light-blue-500 border-opacity-25"
+            class="rounded bg-gray-700 text-xl p-2 border border-blue-300 border-opacity-25"
             on:click={() => {axiomPreambleOpen = false; axiomsOpen = true;}}
           >
             Open Attachment

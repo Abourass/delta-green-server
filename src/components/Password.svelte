@@ -23,6 +23,6 @@
 <div class="flex content-center">
   <label class="flex flex-row justify-between w-full times24">
     <span>{label}</span>
-    <input type="password" bind:value={value} class="w-44">
+    <input type="password" bind:value={value} class="w-44 bg-zinc-900">
   </label>
 </div>

@@ -6,7 +6,15 @@
   <div class="flex flex-row justify-around items-center h-full">
     <button
       type="button"
-      class="rounded bg-gray-700 text-xl p-2 border border-light-blue-500 border-opacity-25"
+      class="
+      rounded
+      bg-slate-700
+      text-xl
+      p-2
+      border
+      border-blue-300
+      border-opacity-25
+    hover:border-delta-green"
       on:click={correspondenceFn}
     >
       Pinned Correspondence
@@ -15,10 +23,18 @@
 
     <button
       type="button"
-      class="rounded bg-gray-700 text-xl p-2 border border-light-blue-500 border-opacity-25"
+      class="
+      rounded
+      bg-slate-700
+      text-xl
+      p-2
+      border
+      border-blue-300
+      border-opacity-25
+    hover:border-delta-green"
     >
       Private Messages
-      <span class="text-md text-gray-500">(0)</span>
+      <span class="text-md bg-opacity-100">(0)</span>
     </button>
   </div>
 </div>

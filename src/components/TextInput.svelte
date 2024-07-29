@@ -1,6 +1,8 @@
 <script type="ts">
   export let value = '';
   export let label = '';
+  export let inputClasses = '';
+  export let labelClasses = '';
 </script>
 
 <style>
@@ -21,8 +23,8 @@
 </style>
 
 <div class="flex content-center">
-  <label class="flex flex-row justify-between w-full times24">
+  <label class={labelClasses + " flex flex-row justify-between w-full times24"}>
     <span>{label}</span>
-    <input type="text" bind:value={value} class="w-44">
+    <input type="text" bind:value={value} class={inputClasses + " w-44"} />
   </label>
 </div>

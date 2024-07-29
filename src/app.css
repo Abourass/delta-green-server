@@ -1,107 +1,73 @@
-@import '@fontsource/fira-mono';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	--font-mono: 'Fira Mono', monospace;
-	--color-bg-0: rgb(202, 216, 228);
-	--color-bg-1: hsl(209, 36%, 86%);
-	--color-bg-2: hsl(224, 44%, 95%);
-	--color-theme-1: #ff3e00;
-	--color-theme-2: #4075a6;
-	--color-text: rgba(0, 0, 0, 0.7);
-	--column-width: 42rem;
-	--column-margin-top: 4rem;
-	font-family: var(--font-body);
-	color: var(--color-text);
+:global(.times32) {
+	font-family: 'Times Pixelated 32', 'Times New Roman', serif;
 }
 
-body {
-	min-height: 100vh;
-	margin: 0;
-	background-attachment: fixed;
-	background-color: var(--color-bg-1);
-	background-size: 100vw 100vh;
-	background-image: radial-gradient(
-			50% 50% at 50% 50%,
-			rgba(255, 255, 255, 0.75) 0%,
-			rgba(255, 255, 255, 0) 100%
-		),
-		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
+:global(button),
+:global(h1),
+:global(.arial16) {
+	font-family: 'Arial Pixelated 16', 'Arial' !important;
 }
 
-h1,
-h2,
-p {
-	font-weight: 400;
+:global(.times24) {
+	font-family: 'Times Pixelated 24', 'Times New Roman', serif !important;
 }
 
-p {
-	line-height: 1.5;
+:global(span),
+:global(p),
+:global(input),
+:global(li),
+:global(.times16) {
+	font-family: 'Times Pixelated 16', 'Times New Roman', serif;
 }
 
-a {
-	color: var(--color-theme-1);
-	text-decoration: none;
+@font-face {
+	font-family: "Arial Pixelated 16";
+	src: url(/fonts/ARIAL.TTF-16-Regular.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap
 }
 
-a:hover {
-	text-decoration: underline;
+@font-face {
+	font-family: "Times Pixelated 16";
+	src: url(/fonts/TIMES.TTF-16-Regular.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap
 }
 
-h1 {
-	font-size: 2rem;
-	text-align: center;
+@font-face {
+	font-family: "Times Pixelated 16";
+	src: url(/fonts/TIMESI.TTF-16-Italic.woff) format("woff");
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap
 }
 
-h2 {
-	font-size: 1rem;
+@font-face {
+	font-family: "Times Pixelated 16";
+	src: url(/fonts/TIMESBD.TTF-16-Bold.woff) format("woff");
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap
 }
 
-pre {
-	font-size: 16px;
-	font-family: var(--font-mono);
-	background-color: rgba(255, 255, 255, 0.45);
-	border-radius: 3px;
-	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
-	padding: 0.5em;
-	overflow-x: auto;
-	color: var(--color-text);
+@font-face {
+	font-family: "Times Pixelated 24";
+	src: url(/fonts/TIMES.TTF-24-Regular.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap
 }
 
-.text-column {
-	display: flex;
-	max-width: 48rem;
-	flex: 0.6;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 auto;
-}
-
-input,
-button {
-	font-size: inherit;
-	font-family: inherit;
-}
-
-button:focus:not(:focus-visible) {
-	outline: none;
-}
-
-@media (min-width: 720px) {
-	h1 {
-		font-size: 2.4rem;
-	}
-}
-
-.visually-hidden {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: auto;
-	margin: 0;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-	white-space: nowrap;
+@font-face {
+	font-family: "Times Pixelated 32";
+	src: url(/fonts/TIMES.TTF-32-Regular.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap
 }

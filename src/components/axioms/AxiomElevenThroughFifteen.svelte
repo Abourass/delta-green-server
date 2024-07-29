@@ -6,47 +6,47 @@
   <br />
   <ol>
     <li>
-      <span>11. <span class="text-delta-green">Never do anything alone.</span></span>
+      <p>11. <span class="text-delta-green">Never do anything alone.</span></p>
       <br />
-      <span class="pl-6">  Always have someone watch your back. </span>
+      <p class="pl-6">  Always have someone watch your back. </p>
       <br />
-      <span class="pl-6">  When you are sleeping, pissing, eating, <span class="text-delta-green">searching</span> a location, interviewing a witness, </span>
+      <p class="pl-6">  When you are sleeping, pissing, eating, <span class="text-delta-green">searching</span> a location, interviewing a witness, </p>
       <br />
-      <span class="pl-6">  or when your nose is buried in research, have someone watching your six. </span>
+      <p class="pl-6">  or when your nose is buried in research, have someone watching your six. </p>
     </li>
     <br />
     <li>
-      <span>12. <span class="text-delta-green">Always establish a rally point in case the team has to scatter and regroup.</span></span>
+      <p>12. <span class="text-delta-green">Always establish a rally point in case the team has to scatter and regroup.</span></p>
       <br />
-      <span class="pl-6">  The rally point should be tactically advantageous in the event that not </span>
+      <p class="pl-6">  The rally point should be tactically advantageous in the event that not </p>
       <br />
-      <span class="pl-6">  everyone manages to shake pursuers and the opportunity arises to ambush them.</span>
+      <p class="pl-6">  everyone manages to shake pursuers and the opportunity arises to ambush them.</p>
       <br />
-      <span class="pl-6">  The rally point should be pre-stocked with anything <span class="text-delta-green">you need to escape</span> </span>
+      <p class="pl-6">  The rally point should be pre-stocked with anything <span class="text-delta-green">you need to escape</span> </p>
       <br />
-      <span class="pl-6">  the opposition: money, travel documents, a spare vehicle if you can manage it.</span>
+      <p class="pl-6">  the opposition: money, travel documents, a spare vehicle if you can manage it.</p>
     </li>
     <br />
     <li>
-      <span>13. <span class="text-delta-green">If you're attacked, break contact.</span></span>
+      <p>13. <span class="text-delta-green">If you're attacked, break contact.</span></p>
       <br />
-      <span class="pl-6">  Do not stand and fight when the opposition has the initiative. </span>
+      <p class="pl-6">  Do not stand and fight when the opposition has the initiative. </p>
       <br />
-      <span class="pl-6">  Retreat, regroup at the rally point, go back later and <span class="text-delta-green">kill them in their sleep</span>. </span>
+      <p class="pl-6">  Retreat, regroup at the rally point, go back later and <span class="text-delta-green">kill them in their sleep</span>. </p>
     </li>
     <br />
     <li>
-      <span>14. <span class="text-delta-green">Any operation can be aborted.</span></span>
+      <p>14. <span class="text-delta-green">Any operation can be aborted.</span></p>
       <br />
-      <span class="pl-6">  If it feels wrong, <span class="text-delta-green">it is wrong</span> </span>
+      <p class="pl-6">  If it feels wrong, <span class="text-delta-green">it is wrong</span> </p>
     </li>
     <br />
     <li>
-      <span>15. <span class="text-delta-green">Never take a chance if you don't have to.</span></span>
+      <p>15. <span class="text-delta-green">Never take a chance if you don't have to.</span></p>
       <br />
-      <span class="pl-6">  You are harder to <span class="text-delta-green">replace</span> than you think. </span>
+      <p class="pl-6">  You are harder to <span class="text-delta-green">replace</span> than you think. </p>
       <br />
-      <span class="pl-6">  Your death, injury or disappearance will be difficult to explain. </span>
+      <p class="pl-6">  Your death, injury or disappearance will be difficult to explain. </p>
     </li>
   </ol>
 </Typewriter>
