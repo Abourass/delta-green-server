@@ -4,6 +4,10 @@
 
 > A (fictional) Delta Green BBS
 
+## Recently Updated
+
+I cam back through and rewrote this using SvelteKit, have fun!
+
 ### ✨ [Demo (User: `newAgent`, Pass: `***`)](https://elegant-jang-3eefb2.netlify.app/)
 
 I made this as prop for my Delta Green game, and figured I'd share. If you want to run your own version, simply for this repo, then in your repo change `/src/Agents.ts` to add give players custom logins.
