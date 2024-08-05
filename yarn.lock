@@ -350,10 +350,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neoconfetti/svelte@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@neoconfetti/svelte@npm:1.0.0"
-  checksum: 10c0/ab38059c304d347851a04fd2fd9bd7cea2ef5e9f25bf841098c4669d68cbca0dee873b150ffbbc48984d5a1ab2047370535993cfc9abbccb8a3dce91a1858a0d
+"@neoconfetti/svelte@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "@neoconfetti/svelte@npm:2.2.1"
+  checksum: 10c0/f69f498039bb03910e765d7f097b0068f62a7b1e934f633abd2b8cfb4e6678999098e9bab83830bc41435a35c582a3f542c3057cd25f4b8d5e1ecea1037d091b
   languageName: node
   linkType: hard
 
@@ -1285,7 +1285,7 @@ __metadata:
   resolution: "delta-green-server@workspace:."
   dependencies:
     "@fontsource/fira-mono": "npm:^4.5.10"
-    "@neoconfetti/svelte": "npm:^1.0.0"
+    "@neoconfetti/svelte": "npm:^2.2.1"
     "@playwright/test": "npm:^1.28.1"
     "@sveltejs/adapter-auto": "npm:^3.0.0"
     "@sveltejs/kit": "npm:^2.0.0"
