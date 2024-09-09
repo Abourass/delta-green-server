@@ -243,10 +243,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/fira-mono@npm:^4.5.10":
-  version: 4.5.10
-  resolution: "@fontsource/fira-mono@npm:4.5.10"
-  checksum: 10c0/8641de09916db27f9d5f0394030d239d062a9931c57db33cc9f63df26d15730e26f012c7b37686a5a964129a0d41162165cdde9983fecbbea5dc8e1502e70be7
+"@fontsource/fira-mono@npm:^5.0.15":
+  version: 5.0.15
+  resolution: "@fontsource/fira-mono@npm:5.0.15"
+  checksum: 10c0/838fba6507592b23197d3a53c34882eccf8fb342f1478bda54832855537ef476dabb45a3f81a65f2b6287ba5148f8675e35af5469e51612cc99979e38470687a
   languageName: node
   linkType: hard
 
@@ -1284,7 +1284,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "delta-green-server@workspace:."
   dependencies:
-    "@fontsource/fira-mono": "npm:^4.5.10"
+    "@fontsource/fira-mono": "npm:^5.0.15"
     "@neoconfetti/svelte": "npm:^2.2.1"
     "@playwright/test": "npm:^1.28.1"
     "@sveltejs/adapter-auto": "npm:^3.0.0"
