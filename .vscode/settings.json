@@ -1,16 +1,18 @@
 {
 	"files.exclude": {
-		"**/.git": true,
-		"**/.svn": true,
-		"**/.hg": true,
-		"**/CVS": true,
-		"**/.DS_Store": true,
-		"**/Thumbs.db": true,
-		"**/.*": true,
-		"eslint*.*": true,
-		"**/tmp/**": true,
-		"**/node_modules/**": true,
-		"**/.git/objects/**": true
+		"**/.git": false,
+		"**/.svn": false,
+		"**/.hg": false,
+		"**/.DS_Store": false,
+		"**/Thumbs.db": false,
+		".nx": false,
+		"**/.*": false,
+		"**/.git/objects/**": false,
+		"**/logs": false,
+		"**/node_modules/**": false,
+		"**/tmp/**": false,
+		"eslint*.*": false,
+		"**/CVS": false
 	},
 	"explorerExclude.backup": {}
 }
