@@ -1,0 +1,377 @@
+{
+  "preamble": {
+    "lines": [
+      "Here are those <span class=\"text-delta-green\">\"Rogers' Rules of Ranging\"</span> we talked about.",
+      "I have no idea whether they actually came from <span class=\"text-delta-green\">Alphonse</span>.",
+      "Writing all this down doesn't seem like the old man's style..",
+      "Maybe it started with him, but it's been making the rounds a long time.",
+      "Who knows how many of us have added to it over the years?",
+      "If you share it with any FNGs, be sure to tell them not to mistake it for intelligence tradecraft.",
+      "It's tradecraft for <span class=\"text-delta-green\">Delta Green</span> agents on the ground."
+    ],
+    "mission": [
+      "Find the threat",
+      "Stop the threat",
+      "Cover it up so it's like the threat never happened"
+    ]
+  },
+  "axioms": [
+    {
+      "number": 1,
+      "title": "The first commandment is, Thou shall not get caught.",
+      "content": [
+        "You do not have a \"get out of jail free\" card. You do not have a license to kill.",
+        "To the world outside Delta Green, <span class=\"text-delta-green\">you are a criminal, a terrorist and a traitor.</span>",
+        "If you are arrested, you will keep quiet, say nothing and take what's coming.",
+        "Getting you out of custody is not A-cell's problem, unless A-cell needs you for something."
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Always have your go-bag packed and ready for a Night at the Opera.",
+      "content": [
+        "Your go-bag should include sanitized gear, <span class=\"text-delta-green\">weapons</span>, cash, clothing",
+        "and false identification that can be used and abandoned during a Night at the Opera"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Stick to code names and cover names.",
+      "content": [
+        "The <span class=\"text-delta-green\">less you learn</span> about each other during an operation the safer you all are.",
+        "You can't betray what you don't know.",
+        "This is doubly true when dealing with Friendlies."
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Always keep to your cover identity.",
+      "content": [
+        "Your cover should always be someone with a <span class=\"text-delta-green\">reason</span> for asking the questions you need answered."
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Prepare a new cover after every Night at the Opera.",
+      "content": [
+        "Covers last only as long as they are <span class=\"text-delta-green\">necessary</span>.",
+        "Even the best covers can't stand up to intense scrutiny.",
+        "Make them, use them, ditch them."
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Other than sticking to your cover, never lie to a fellow member of Delta Green.",
+      "content": [
+        "About anything.",
+        "<span class=\"text-delta-green\">Ever.</span>",
+        "Unless A-cell says otherwise."
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Always lie to anyone who isn't a member of Delta Green.",
+      "content": [
+        "About everything.",
+        "<span class=\"text-delta-green\">Always.</span>",
+        "And make sure your lies are specific and consistent."
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Friendlies can know the truth about an individual operation.",
+      "content": [
+        "They can never know the <span class=\"text-delta-green\">truth</span> about Delta Green."
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Always scout your destination, no matter how secure you think it is.",
+      "content": [
+        "Never bring the whole team to do surveillance.",
+        "Be <span class=\"text-delta-green\">inconspicuous.</span>",
+        "See the enemy first."
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Always perform a counter-surveillance check before you camp down and before you move.",
+      "content": [
+        "Perfect <span class=\"text-delta-green\">paranoia</span> is perfect awareness."
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Never do anything alone.",
+      "content": [
+        "Always have someone watch your back.",
+        "When you are sleeping, pissing, eating, <span class=\"text-delta-green\">searching</span> a location, interviewing a witness,",
+        "or when your nose is buried in research, have someone watching your six."
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Always establish a rally point in case the team has to scatter and regroup.",
+      "content": [
+        "The rally point should be tactically advantageous in the event that not",
+        "everyone manages to shake pursuers and the opportunity arises to ambush them.",
+        "The rally point should be pre-stocked with anything <span class=\"text-delta-green\">you need to escape</span>",
+        "the opposition: money, travel documents, a spare vehicle if you can manage it."
+      ]
+    },
+    {
+      "number": 13,
+      "title": "If you're attacked, break contact.",
+      "content": [
+        "Do not stand and fight when the opposition has the initiative.",
+        "Retreat, regroup at the rally point, go back later and <span class=\"text-delta-green\">kill them in their sleep</span>."
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Any operation can be aborted.",
+      "content": [
+        "If it feels wrong, <span class=\"text-delta-green\">it is wrong</span>"
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Never take a chance if you don't have to.",
+      "content": [
+        "You are harder to <span class=\"text-delta-green\">replace</span> than you think.",
+        "Your death, injury or disappearance will be difficult to explain."
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Don't wait until you see the whites of their eyes.",
+      "content": [
+        "If firearms have <span class=\"text-delta-green\">no effect</span>, it's best to find that out",
+        "while you still have the time and the space to break contact."
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Give no \"fair warnings.\"",
+      "content": [
+        "<span class=\"text-delta-green\">Surprise</span> is the only advantage you have.",
+        "Taking live prisoners usually carries more operational hazards than benefits."
+      ]
+    },
+    {
+      "number": 18,
+      "title": "If you do take prisoners, never leave them together to cook up a story between them",
+      "content": [
+        "Unless, of course, you've <span class=\"text-delta-green\">bugged</span> their cell."
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Torture rarely works on our brand of opposition.",
+      "content": [
+        "Be prepared to find another way in.",
+        "Look for the opposition's laptops, notepads, cell phones, documents, and journals.",
+        "Passwords and encryption are often <span class=\"text-delta-green\">broken</span> more easily and more reliably than men."
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Assume nothing.",
+      "content": [
+        "<span class=\"text-delta-green\">Don't believe</span> what you are told.",
+        "Double-check it yourself."
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Everyone is always potentially under control by the opposition.",
+      "content": [
+        "Including your <span class=\"text-delta-green\">teammates</span>."
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Don't harass the opposition.",
+      "content": [
+        "Save your energy, <span class=\"text-delta-green\">limit your exposure</span>, strike when you are ready.",
+        "Be utterly thorough.",
+        "Be utterly ruthless."
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Don't ever go into any place if you don't know how to get out.",
+      "content": [
+        "This includes buildings, neighborhoods, cities, states and countries.",
+        "Always work backwards.",
+        "Establish your line of <span class=\"text-delta-green\">retreat first</span>."
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Always take a different route getting out than you took going in.",
+      "content": []
+    },
+    {
+      "number": 25,
+      "title": "Think carefully before you steer law enforcement officers toward the opposition.",
+      "content": [
+        "Law enforcement officers are unprepared for the supernatural and <span class=\"text-delta-green\">high casualties are likely</span>.",
+        "LEOs may not be prepared to prevent escapes or the loss of critical opposition assets.",
+        "They do, however, make an excellent distraction."
+      ]
+    },
+    {
+      "number": 26,
+      "title": "When embedded with an agency that is pursuing its legitimate remit, act with extreme caution.",
+      "content": [
+        "Remember that in this situation you are working without cover.",
+        "The host agency's goals are <span class=\"text-delta-green\">not our goals</span>.",
+        "You may have to undermine their mission in order to accomplish our mission."
+      ]
+    },
+    {
+      "number": 27,
+      "title": "Recognize when it's time to call A-cell for help, especially when embedded in a legitimate investigation.",
+      "content": [
+        "Oversight and legitimate duties can prevent you from directly accomplishing your objectives.",
+        "Other cells can <span class=\"text-delta-green\">execute</span> the mission while you act as a conduit for intelligence.",
+        "Don't marry the mission."
+      ]
+    },
+    {
+      "number": 28,
+      "title": "Always check the nearest Green Box and stock it with leftover supplies.",
+      "content": [
+        "If there isn't a <span class=\"text-delta-green\">Green Box</span> nearby, create one."
+      ]
+    },
+    {
+      "number": 29,
+      "title": "Don't lose a tail until you arrange for someone to follow those following you.",
+      "content": [
+        "Find out <span class=\"text-delta-green\">where they go</span> and what they do."
+      ]
+    },
+    {
+      "number": 30,
+      "title": "Never start shooting until you identify the opposition and confirm their numbers and capabilities.",
+      "content": []
+    },
+    {
+      "number": 31,
+      "title": "If you find a target during the day, wait and attack under cover of darkness.",
+      "content": [
+        "It won't just <span class=\"text-delta-green\">hide</span> your numbers and actions from the enemy,",
+        "it will hide your actions from innocent bystanders you won't have to eliminate later."
+      ]
+    },
+    {
+      "number": 32,
+      "title": "Never search an occupied structure.",
+      "content": [
+        "If you are entering an occupied structure, it's called an assault.",
+        "<span class=\"text-delta-green\">Dress accordingly.</span>"
+      ]
+    },
+    {
+      "number": 33,
+      "title": "Don't kick down the front door.",
+      "content": [
+        "Make your own <span class=\"text-delta-green\">entry point</span>.",
+        "This applies to most situations, both literally and figuratively"
+      ]
+    },
+    {
+      "number": 34,
+      "title": "Calculate the opposition's strength and identity from a prudent distance.",
+      "content": [
+        "Send in closer reconnaissance after all other options are exhausted.",
+        "Take your time.",
+        "Do not rush.",
+        "If you're made, back off.",
+        "Someone else can <span class=\"text-delta-green\">kill them later</span>."
+      ]
+    },
+    {
+      "number": 35,
+      "title": "When you don't have enough force to assault the opposition's stronghold, burn it.",
+      "content": [
+        "Flush them and <span class=\"text-delta-green\">ambush</span> their escape route."
+      ]
+    },
+    {
+      "number": 36,
+      "title": "Use your pre-paid burner cell phone.",
+      "content": [
+        "Turn it off and take out the batteries when it's not in use.",
+        "<span class=\"text-delta-green\">Throw it away after the Opera.</span>",
+        "Other than that, stick to randomly selected public landlines when contacting A-Cell.",
+        "You shouldn't be calling anyone else during an Opera."
+      ]
+    },
+    {
+      "number": 37,
+      "title": "Cell phones are tracked by employers and family alike.",
+      "content": [
+        "Make sure your personal cell phone is wherever your cover story says <span class=\"text-delta-green\">you are supposed to be</span>."
+      ]
+    },
+    {
+      "number": 38,
+      "title": "You're safer if you never get out of range of encrypted radio with your teammates.",
+      "content": [
+        "You're <span class=\"text-delta-green\">safest</span> if you never get out of each others' sight."
+      ]
+    },
+    {
+      "number": 39,
+      "title": "Use old cars.",
+      "content": [
+        "No Lojack, <span class=\"text-delta-green\">no airbags</span>, no automatic locks.",
+        "Manual everything, if you can get it."
+      ]
+    },
+    {
+      "number": 40,
+      "title": "Never bring anything to the Opera if you can't drop it and walk away.",
+      "content": [
+        "Never bring anything you didn't buy with cash.",
+        "Never, ever bring anything your home agency issued to you.",
+        "<span class=\"text-delta-green\">Ever</span>."
+      ]
+    },
+    {
+      "number": 41,
+      "title": "Do not use any system of planar manipulation that could be taken for actual magic.",
+      "content": [
+        "<span class=\"text-delta-green\">You will become part of the problem.</span>",
+        "Concentrate on solving the problem before the supernatural becomes your only option.",
+        "If you do end up using such systems, always tell A-Cell that you did.",
+        "The consequences are far preferable to having A-Cell find out later that you kept it a secret."
+      ]
+    },
+    {
+      "number": 42,
+      "title": "Never leave teammates behind where the authorities can find them.",
+      "content": []
+    },
+    {
+      "number": 43,
+      "title": "Always report back to A-cell.",
+      "content": [
+        "Even if that means leaving your team to <span class=\"text-delta-green\">die</span>."
+      ]
+    },
+    {
+      "number": 44,
+      "title": "If you are successful, you won't have to explain your actions to A-Cell.",
+      "content": [
+        "A-Cell will be the final arbiter of <span class=\"text-delta-green\">your success</span>."
+      ]
+    }
+  ],
+  "signature": {
+    "names": ["Adrian", "Edward", "Eugene", "Sawyer", "Kellen", "Pascal", "Virgil"]
+  }
+}

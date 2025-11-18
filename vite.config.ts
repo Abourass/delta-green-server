@@ -1,9 +1,14 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
-	plugins: [sveltekit()],
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
+	plugins: [svelte()],
+	base: '/delta-green-server-1/',
+	resolve: {
+		alias: {
+			'$lib': '/src/lib',
+			'$components': '/src/components',
+			'$data': '/src/data'
+		}
 	}
 });

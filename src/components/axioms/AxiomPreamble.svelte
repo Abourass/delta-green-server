@@ -1,28 +1,32 @@
-<script type="ts">
-  import Typewriter from 'svelte-typewriter';
-  export let onFinish;
+<script lang="ts">
+	import Typewriter from 'svelte-typewriter';
+	import axiomsData from '$data/axioms.json';
+
+	export let onFinish: () => void;
+
+	let showButton = false;
 </script>
 
-<Typewriter cascade on:done={onFinish}>
-  <p class="text-center pb-4"> Here are those <span class="text-delta-green">"Rogers' Rules of Ranging"</span> we talked about. </p>
+<Typewriter cascade on:done={() => (showButton = true)}>
+	{#each axiomsData.preamble.lines as line}
+		<p class="text-center pb-4">{@html line}</p>
+	{/each}
 
-  <p class="text-center"> I have no idea whether they actually came from <span class="text-delta-green">Alphonse</span>.</p>
-
-  <p class="text-center"> Writing all this down doesn't seem like the old man's style..</p>
-
-  <p class="text-center"> Maybe it started with him, but it's been making the rounds a long time.</p>
-
-  <p class="text-center">Who knows how many of us have added to it over the years?</p>
-
-  <p class="text-center"> If you share it with any FNGs, be sure to tell them not to mistake it for intelligence tradecraft. </p>
-
-  <p class="text-center pb-4"> It's tradecraft for <span class="text-delta-green">Delta Green</span> agents on the ground.</p>
-  
-  <ul class="flex flex-col justify-center items-center pb-4">
-    <p class="text-delta-green">It all comes back to the same old mission:</p>
-    <li> Find the threat </li>
-    <li> Stop the threat </li>
-    <li> Cover it up so it's like the threat never happened </li>
-  </ul>
-
+	<ul class="flex flex-col justify-center items-center pb-4">
+		<p class="text-delta-green">It all comes back to the same old mission:</p>
+		{#each axiomsData.preamble.mission as item}
+			<li>{item}</li>
+		{/each}
+	</ul>
 </Typewriter>
+
+{#if showButton}
+	<button
+		type="button"
+		class="rounded bg-slate-700 text-xl p-2 border border-blue-300 border-opacity-25 hover:border-delta-green"
+		on:click={onFinish}
+	>
+		Open Attachment
+		<span class="text-md text-gray-400">(Axioms.txt)</span>
+	</button>
+{/if}
