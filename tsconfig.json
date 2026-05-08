@@ -20,11 +20,11 @@
 		"noFallthroughCasesInSwitch": true,
 
 		/* Path aliases */
-		"baseUrl": ".",
 		"paths": {
-			"$lib/*": ["src/lib/*"],
-			"$components/*": ["src/components/*"],
-			"$data/*": ["src/data/*"]
+			"*": ["./*"],
+			"$lib/*": ["./src/lib/*"],
+			"$components/*": ["./src/components/*"],
+			"$data/*": ["./src/data/*"]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.svelte"],
