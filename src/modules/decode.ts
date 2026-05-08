@@ -1,12 +1,13 @@
-import {randomChar} from './scrambleUtils';
+import { randomChar } from './scrambleUtils';
 
-export const keysAreSameLength = (keys: Array<string>) => keys.map(key => key.length === keys[0].length).length === keys.length
+export const keysAreSameLength = (keys: Array<string>) =>
+	keys.length > 0 && keys.every((key) => key.length === keys[0].length);
 
 export const decode = (str: string, key: string) => {
-  const strArray: Array<string> = [...str];
-  let mutateAt = Math.floor(Math.random() * strArray.length);
+	const strArray: Array<string> = [...str];
+	const mutateAt = Math.floor(Math.random() * strArray.length);
 
-  if (strArray[mutateAt] !== key[mutateAt]) strArray[mutateAt] = randomChar(1);
+	if (strArray[mutateAt] !== key[mutateAt]) strArray[mutateAt] = randomChar(1);
 
-  return strArray.join('')
-}
+	return strArray.join('');
+};
