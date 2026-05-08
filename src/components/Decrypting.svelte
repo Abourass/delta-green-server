@@ -1,7 +1,13 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import Typewriter from 'svelte-typewriter';
 
-	export let onFinish: () => void;
+	type DecryptingProps = {
+		onFinish?: () => void;
+	};
+
+	let { onFinish = () => {} }: DecryptingProps = $props();
 </script>
 
 <Typewriter interval={80} on:done={onFinish}>
