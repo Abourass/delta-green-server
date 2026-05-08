@@ -1,5 +1,3 @@
-<svelte:options runes={true} />
-
 <script lang="ts">
 	import { blur } from 'svelte/transition';
 	import { decode, keysAreSameLength } from '../../modules/decode';
@@ -24,10 +22,6 @@
 	let shownFinishedFor = $state(0);
 	let fadedFor = $state(0);
 	const keyLength = $derived(keys[0]?.length ?? 0);
-
-	$effect(() => {
-		currentText = startingText;
-	});
 
 	export const loopDecode = (str: string, decodeKeys: Array<string>) => {
 		if (!decodeKeys.length) return str;
@@ -78,7 +72,9 @@
 	};
 
 	$effect(() => {
+		const seed = startingText;
 		const decodeKeys = keys;
+		currentText = seed;
 
 		if (!decodeKeys.length) {
 			return;

@@ -1,29 +1,26 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import Agents from '../Agents';
 	import { user, password } from '../stores/user';
-	import Password from './Password.svelte';
 	import TextInput from './TextInput.svelte';
 
-	const dispatch = createEventDispatcher();
+	type LogInFormProps = {
+		onLogin?: () => void;
+	};
 
-	const login = (event: Event) => {
+	let { onLogin = () => {} }: LogInFormProps = $props();
+
+	const login = (event: SubmitEvent) => {
 		event.preventDefault();
-		const records = Agents.filter(
-			(agent) => agent.user === $user && agent.password === $password
-		);
+		const records = Agents.filter((agent) => agent.user === $user && agent.password === $password);
 		if (records.length === 1) {
-			dispatch('login');
+			onLogin();
 		}
 	};
 </script>
 
-<form
-	class="w-full px-8 pt-10 pb-6 rounded-md flex flex-col justify-center"
-	on:submit={login}
->
-	<TextInput label="User" bind:value={$user} labelClasses="mb-1" inputClasses="bg-zinc-900" />
-	<Password bind:value={$password} />
+<form class="w-full px-8 pt-10 pb-6 rounded-md flex flex-col justify-center" onsubmit={login}>
+	<TextInput label="User" bind:value={$user} labelClasses="mb-1" autocomplete="username" />
+	<TextInput type="password" label="Pass" bind:value={$password} autocomplete="current-password" />
 	<button
 		type="submit"
 		class="rounded bg-slate-700 mt-3 w-20 mx-auto text-xl border-2 border-blue-300 border-opacity-25 hover:border-delta-green"

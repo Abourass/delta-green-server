@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let correspondenceFn: () => void;
+	type NavigationProps = {
+		onCorrespondence?: () => void;
+	};
+
+	let { onCorrespondence = () => {} }: NavigationProps = $props();
 </script>
 
 <div class="w-full h-28">
@@ -7,7 +11,7 @@
 		<button
 			type="button"
 			class="rounded bg-slate-700 text-xl p-2 border border-blue-300 border-opacity-25 hover:border-delta-green"
-			on:click={correspondenceFn}
+			onclick={onCorrespondence}
 		>
 			Pinned Correspondence
 			<span class="text-md text-gray-400">(1)</span>
