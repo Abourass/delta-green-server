@@ -65,10 +65,10 @@ pnpm run format
 Edit `src/Agents.ts` to add player credentials:
 
 ```typescript
-export const Agents: Array<{user: string, password: string}> = [
-  {user: 'newAgent', password: '***'},
-  {user: 'playerName', password: 'secretPassword'}
-]
+export const Agents: Array<{ user: string; password: string }> = [
+	{ user: 'newAgent', password: '***' },
+	{ user: 'playerName', password: 'secretPassword' }
+];
 ```
 
 ## Editing Axioms
@@ -108,4 +108,4 @@ MIT
 
 ## Motto
 
-*Scientia Mors Est*
+_Scientia Mors Est_
