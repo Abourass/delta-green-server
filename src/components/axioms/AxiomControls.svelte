@@ -1,16 +1,14 @@
 <script lang="ts">
-	export let lastFn: () => void;
-	export let nextFn: () => void;
+	type AxiomControlsProps = {
+		onPrev?: () => void;
+		onNext?: () => void;
+	};
+
+	let { onPrev = () => {}, onNext = () => {} }: AxiomControlsProps = $props();
 </script>
 
-<style>
-	.to-bottom {
-		top: 73vh;
-	}
-</style>
-
 <div class="flex flex-row justify-around w-2/3 mt-4 fixed to-bottom">
-	<button type="button" class="rounded text-xl p-2" on:click={lastFn}>
+	<button type="button" class="rounded text-xl p-2" aria-label="Previous page" onclick={onPrev}>
 		<span class="text-md text-gray-400">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +27,12 @@
 		</span>
 	</button>
 
-	<button type="button" class="rounded text-xl p-2 hover:stroke-delta-green" on:click={nextFn}>
+	<button
+		type="button"
+		class="rounded text-xl p-2 hover:stroke-delta-green"
+		aria-label="Next page"
+		onclick={onNext}
+	>
 		<span class="text-md text-gray-400 hover:stroke-delta-green">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -48,3 +51,9 @@
 		</span>
 	</button>
 </div>
+
+<style>
+	.to-bottom {
+		top: 73vh;
+	}
+</style>
