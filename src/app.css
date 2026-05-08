@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 .times32 {
 	font-family: 'Times Pixelated 32', 'Times New Roman', serif;
@@ -25,49 +23,49 @@ li,
 }
 
 @font-face {
-	font-family: "Arial Pixelated 16";
-	src: url(/fonts/ARIAL.TTF-16-Regular.woff) format("woff");
+	font-family: 'Arial Pixelated 16';
+	src: url(/fonts/ARIAL.TTF-16-Regular.woff) format('woff');
 	font-weight: normal;
 	font-style: normal;
-	font-display: swap
+	font-display: swap;
 }
 
 @font-face {
-	font-family: "Times Pixelated 16";
-	src: url(/fonts/TIMES.TTF-16-Regular.woff) format("woff");
+	font-family: 'Times Pixelated 16';
+	src: url(/fonts/TIMES.TTF-16-Regular.woff) format('woff');
 	font-weight: normal;
 	font-style: normal;
-	font-display: swap
+	font-display: swap;
 }
 
 @font-face {
-	font-family: "Times Pixelated 16";
-	src: url(/fonts/TIMESI.TTF-16-Italic.woff) format("woff");
+	font-family: 'Times Pixelated 16';
+	src: url(/fonts/TIMESI.TTF-16-Italic.woff) format('woff');
 	font-weight: normal;
 	font-style: italic;
-	font-display: swap
+	font-display: swap;
 }
 
 @font-face {
-	font-family: "Times Pixelated 16";
-	src: url(/fonts/TIMESBD.TTF-16-Bold.woff) format("woff");
+	font-family: 'Times Pixelated 16';
+	src: url(/fonts/TIMESBD.TTF-16-Bold.woff) format('woff');
 	font-weight: bold;
 	font-style: normal;
-	font-display: swap
+	font-display: swap;
 }
 
 @font-face {
-	font-family: "Times Pixelated 24";
-	src: url(/fonts/TIMES.TTF-24-Regular.woff) format("woff");
+	font-family: 'Times Pixelated 24';
+	src: url(/fonts/TIMES.TTF-24-Regular.woff) format('woff');
 	font-weight: normal;
 	font-style: normal;
-	font-display: swap
+	font-display: swap;
 }
 
 @font-face {
-	font-family: "Times Pixelated 32";
-	src: url(/fonts/TIMES.TTF-32-Regular.woff) format("woff");
+	font-family: 'Times Pixelated 32';
+	src: url(/fonts/TIMES.TTF-32-Regular.woff) format('woff');
 	font-weight: normal;
 	font-style: normal;
-	font-display: swap
+	font-display: swap;
 }
