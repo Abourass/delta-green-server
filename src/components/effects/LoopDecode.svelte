@@ -1,55 +1,75 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { blur } from 'svelte/transition';
-	import { writable } from 'svelte/store';
 	import { decode, keysAreSameLength } from '../../modules/decode';
 	import { randomChar } from '../../modules/scrambleUtils';
 	import axiomsData from '$data/axioms.json';
 
-	export let startingText = randomChar(6);
-	export let keys = axiomsData.signature.names;
-	export let fadeFor = 10;
+	type LoopDecodeProps = {
+		startingText?: string;
+		keys?: string[];
+		fadeFor?: number;
+	};
 
-	let finished = false;
-	let keyToDecode = writable(0);
-	let shownFinishedFor = writable(0);
-	let fadedFor = writable(0);
-	let length = writable(keys[0].length);
+	let {
+		startingText = randomChar(6),
+		keys = axiomsData.signature.names,
+		fadeFor = 10
+	}: LoopDecodeProps = $props();
+
+	let currentText = $state('');
+	let finished = $state(false);
+	let keyToDecode = $state(0);
+	let shownFinishedFor = $state(0);
+	let fadedFor = $state(0);
+	const keyLength = $derived(keys[0]?.length ?? 0);
+
+	$effect(() => {
+		currentText = startingText;
+	});
 
 	export const loopDecode = (str: string, decodeKeys: Array<string>) => {
-		if (!keysAreSameLength(decodeKeys))
+		if (!decodeKeys.length) return str;
+
+		if (!keysAreSameLength(decodeKeys)) {
 			throw new TypeError('All keys must be the same length of characters!');
+		}
 
-		let key = decodeKeys[$keyToDecode].toLowerCase();
+		if (keyToDecode >= decodeKeys.length) {
+			keyToDecode = 0;
+		}
 
-		if (str === '\xa0' && $fadedFor < fadeFor) {
+		let key = decodeKeys[keyToDecode].toLowerCase();
+
+		if (str === '\xa0' && fadedFor < fadeFor) {
 			// Fading between words
-			$fadedFor = $fadedFor + 1;
+			fadedFor = fadedFor + 1;
 			return '\xa0';
 		}
 
-		if ($fadedFor === fadeFor) {
-			$shownFinishedFor = 0;
-			$fadedFor = 0;
+		if (fadedFor === fadeFor) {
+			shownFinishedFor = 0;
+			fadedFor = 0;
 			finished = false;
-			str = randomChar($length);
+			str = randomChar(keyLength);
 
-			if ($keyToDecode === decodeKeys.length - 1) {
-				$keyToDecode = 0;
+			if (keyToDecode === decodeKeys.length - 1) {
+				keyToDecode = 0;
 			} else {
-				$keyToDecode = $keyToDecode + 1;
+				keyToDecode = keyToDecode + 1;
 			}
 
-			key = decodeKeys[$keyToDecode].toLowerCase();
+			key = decodeKeys[keyToDecode].toLowerCase();
 		}
 
 		if (str === key) {
 			// String matches, start fade and wipe
-			if ($shownFinishedFor < 100) {
-				$shownFinishedFor = $shownFinishedFor + 1;
+			if (shownFinishedFor < 100) {
+				shownFinishedFor = shownFinishedFor + 1;
 				return str;
 			}
-			if ($shownFinishedFor === 100) return '\xa0';
+			if (shownFinishedFor === 100) return '\xa0';
 		}
 
 		const decodedStr = decode(str, key);
@@ -57,9 +77,15 @@
 		return decodedStr;
 	};
 
-	onMount(() => {
+	$effect(() => {
+		const decodeKeys = keys;
+
+		if (!decodeKeys.length) {
+			return;
+		}
+
 		const interval = setInterval(() => {
-			startingText = loopDecode(startingText, keys);
+			currentText = loopDecode(currentText, decodeKeys);
 		}, 20);
 
 		return () => clearInterval(interval);
@@ -68,8 +94,8 @@
 
 <div>
 	{#if finished}
-		<span transition:blur={{ amount: 8 }} class="capitalize"> {startingText} </span>
+		<span transition:blur={{ amount: 8 }} class="capitalize"> {currentText} </span>
 	{:else}
-		<span> {startingText} </span>
+		<span> {currentText} </span>
 	{/if}
 </div>
