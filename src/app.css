@@ -2,25 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:global(.times32) {
+.times32 {
 	font-family: 'Times Pixelated 32', 'Times New Roman', serif;
 }
 
-:global(button),
-:global(h1),
-:global(.arial16) {
+button,
+h1,
+.arial16 {
 	font-family: 'Arial Pixelated 16', 'Arial' !important;
 }
 
-:global(.times24) {
+.times24 {
 	font-family: 'Times Pixelated 24', 'Times New Roman', serif !important;
 }
 
-:global(span),
-:global(p),
-:global(input),
-:global(li),
-:global(.times16) {
+span,
+p,
+input,
+li,
+.times16 {
 	font-family: 'Times Pixelated 16', 'Times New Roman', serif;
 }
 
