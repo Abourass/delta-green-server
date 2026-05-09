@@ -22,3 +22,8 @@ vite.config.ts.timestamp-*
 
 dist
 *.tsbuildinfo
+
+# Playwright
+playwright-report
+test-results
+blob-report
