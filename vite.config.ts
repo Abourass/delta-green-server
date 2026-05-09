@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
+const deployBase = process.env.NETLIFY === 'true' ? '/' : '/delta-green-server-1/';
+
 export default defineConfig({
 	plugins: [
 		svelte({
@@ -13,7 +15,7 @@ export default defineConfig({
 			}
 		})
 	],
-	base: '/delta-green-server-1/',
+	base: deployBase,
 	resolve: {
 		alias: {
 			$lib: '/src/lib',
