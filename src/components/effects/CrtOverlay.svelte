@@ -48,8 +48,8 @@
 
 	const PIXEL_RATIO_CAP = 2;
 	const CAPTURE_SCALE = 1;
-	const CAPTURE_INTERVAL_MS = 1000 / 15;
-	const REDUCED_CAPTURE_INTERVAL_MS = 600;
+	const CAPTURE_INTERVAL_MS = 1000 / 3;
+	const REDUCED_CAPTURE_INTERVAL_MS = 1200;
 	const DEFAULT_SHADER_PARAMS: CrtShaderParams = {
 		scanlineIntensity: 0.5,
 		scanlineCount: 256,
@@ -282,10 +282,12 @@
 	let html2canvasFn: Html2CanvasFn | null = null;
 	let captureInFlight = false;
 	let sourceReady = $state(false);
+	let sourceDirty = true;
 	let sourceWidth = 0;
 	let sourceHeight = 0;
 	let lastCaptureAtMs = 0;
 	let componentMounted = false;
+	let sourceObserver: MutationObserver | null = null;
 
 	const setRendererMode = (nextMode: RendererMode) => {
 		if (rendererMode === nextMode) {
@@ -464,6 +466,10 @@
 	};
 
 	const shouldIgnoreElement = (element: Element) => {
+		if (element.classList.contains('html2canvas-container')) {
+			return true;
+		}
+
 		if (!(element instanceof HTMLElement)) {
 			return false;
 		}
@@ -471,8 +477,85 @@
 		return element.dataset.crtIgnore === 'true' || element.dataset.html2canvasIgnore !== undefined;
 	};
 
+	const isNodeIgnored = (node: Node | null, fallback: Node | null = null) => {
+		if (!node) {
+			return false;
+		}
+
+		const fallbackElement = fallback instanceof Element ? fallback : null;
+		const element = node instanceof Element ? node : node.parentElement || fallbackElement;
+
+		if (!element) {
+			return false;
+		}
+
+		if (shouldIgnoreElement(element)) {
+			return true;
+		}
+
+		return Boolean(
+			element.closest('[data-crt-ignore="true"], [data-html2canvas-ignore], .html2canvas-container')
+		);
+	};
+
+	const markSourceDirty = () => {
+		sourceDirty = true;
+	};
+
+	const mutationTouchesRenderableContent = (mutation: MutationRecord) => {
+		if (mutation.type === 'childList') {
+			const changedNodes = [...mutation.addedNodes, ...mutation.removedNodes];
+			if (changedNodes.length === 0) {
+				return false;
+			}
+
+			return changedNodes.some((node) => !isNodeIgnored(node, mutation.target));
+		}
+
+		return !isNodeIgnored(mutation.target);
+	};
+
+	const startSourceObserver = () => {
+		if (typeof window === 'undefined' || sourceObserver || !document.body) {
+			return;
+		}
+
+		sourceObserver = new MutationObserver((mutations) => {
+			if (sourceDirty) {
+				return;
+			}
+
+			for (const mutation of mutations) {
+				if (mutationTouchesRenderableContent(mutation)) {
+					markSourceDirty();
+					return;
+				}
+			}
+		});
+
+		sourceObserver.observe(document.body, {
+			subtree: true,
+			childList: true,
+			attributes: true,
+			characterData: true
+		});
+	};
+
+	const stopSourceObserver = () => {
+		if (!sourceObserver) {
+			return;
+		}
+
+		sourceObserver.disconnect();
+		sourceObserver = null;
+	};
+
 	const captureSourceFrame = async () => {
 		if (!html2canvasFn || !componentMounted || captureInFlight) {
+			return;
+		}
+
+		if (sourceReady && !sourceDirty) {
 			return;
 		}
 
@@ -494,6 +577,7 @@
 			});
 
 			uploadSourceCanvas(snapshot);
+			sourceDirty = false;
 			lastCaptureAtMs = performance.now();
 			renderFrame(lastCaptureAtMs * 0.001);
 		} catch {
@@ -550,7 +634,13 @@
 
 		const loop = (timestampMs: number) => {
 			const captureInterval = reducedMotion ? REDUCED_CAPTURE_INTERVAL_MS : CAPTURE_INTERVAL_MS;
-			if (timestampMs - lastCaptureAtMs >= captureInterval && !captureInFlight) {
+			const shouldCapture =
+				document.visibilityState === 'visible' &&
+				timestampMs - lastCaptureAtMs >= captureInterval &&
+				!captureInFlight &&
+				(sourceDirty || !sourceReady);
+
+			if (shouldCapture) {
 				void captureSourceFrame();
 			}
 
@@ -563,12 +653,18 @@
 
 	const handleResize = () => {
 		resizeCanvas();
+		markSourceDirty();
 		lastCaptureAtMs = 0;
 		void captureSourceFrame();
 	};
 
+	const handleInteraction = () => {
+		markSourceDirty();
+	};
+
 	const teardown = () => {
 		stopAnimation();
+		stopSourceObserver();
 
 		if (glContext && positionBuffer) {
 			glContext.deleteBuffer(positionBuffer);
@@ -588,6 +684,7 @@
 		sourceTexture = null;
 		glContext = null;
 		sourceReady = false;
+		sourceDirty = true;
 		sourceWidth = 0;
 		sourceHeight = 0;
 		captureInFlight = false;
@@ -649,11 +746,16 @@
 				resizeCanvas();
 
 				setRendererMode('webgl');
+				startSourceObserver();
 				if (html2canvasFn) {
+					markSourceDirty();
 					await captureSourceFrame();
 				}
 				startAnimation();
 				window.addEventListener('resize', handleResize, { passive: true });
+				window.addEventListener('scroll', handleInteraction, { passive: true });
+				document.addEventListener('input', handleInteraction, { passive: true });
+				document.addEventListener('change', handleInteraction, { passive: true });
 			} catch {
 				teardown();
 				setRendererMode('css');
@@ -665,6 +767,9 @@
 		return () => {
 			componentMounted = false;
 			window.removeEventListener('resize', handleResize);
+			window.removeEventListener('scroll', handleInteraction);
+			document.removeEventListener('input', handleInteraction);
+			document.removeEventListener('change', handleInteraction);
 			teardown();
 		};
 	});
@@ -691,9 +796,6 @@
 			(reducedMotion ? 1 : 0);
 		void dependencyHash;
 
-		if (!captureInFlight) {
-			void captureSourceFrame();
-		}
 		renderFrame(performance.now() * 0.001);
 	});
 </script>
