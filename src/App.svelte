@@ -60,56 +60,112 @@
 	const prevPage = () => {
 		currentPage = prevWrappedPage(currentPage, totalPages);
 	};
+
+	const isTypingTarget = (target: EventTarget | null) => {
+		if (!(target instanceof HTMLElement)) {
+			return false;
+		}
+
+		const tag = target.tagName;
+		return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
+	};
+
+	$effect(() => {
+		const onKeydown = (event: KeyboardEvent) => {
+			if (isTypingTarget(event.target)) {
+				return;
+			}
+
+			const key = event.key.toLowerCase();
+
+			if (isAxioms && (event.key === 'ArrowRight' || key === 'l')) {
+				event.preventDefault();
+				nextPage();
+				return;
+			}
+
+			if (isAxioms && (event.key === 'ArrowLeft' || key === 'j')) {
+				event.preventDefault();
+				prevPage();
+				return;
+			}
+
+			if (isNavigation && key === 'c') {
+				event.preventDefault();
+				handleCorrespondence();
+				return;
+			}
+
+			if (!isLogin && !isWelcome && key === 'h') {
+				event.preventDefault();
+				handleLogoClick();
+			}
+		};
+
+		window.addEventListener('keydown', onKeydown);
+
+		return () => window.removeEventListener('keydown', onKeydown);
+	});
 </script>
 
-<main class="h-screen w-full text-white text-opacity-90 flex justify-center">
-	<div class="mt-14 w-9/12 lg:w-3/5 xl:w-2/5 flex flex-col items-center">
-		{#if isLogin}
-			<Typewriter interval={47} on:done={() => (appState = 'login')}>
-				<h1 class="text-3xl">
-					Welcome to the <span class="text-5xl text-delta-green">Δ</span> Secure Server v24.8
-				</h1>
-			</Typewriter>
-			<div class="md:w-3/4 lg:w-2/4 xl:w-2/5 mt-8">
-				<LogInForm onLogin={handleLogin} />
-			</div>
-		{:else if isWelcome}
-			<Typewriter interval={47} on:done={handleWelcomeDone}>
-				<h1 class="text-3xl mb-5">
-					Welcome <span class="text-delta-green times24">{$user}</span> to the
-					<span class="text-5xl text-delta-green cursor-pointer">Δ</span>
+<main class="bbs-shell">
+	<section class="terminal-panel w-[92%] max-w-4xl px-5 py-8 sm:px-10 sm:py-10">
+		<div class="terminal-status mb-5">
+			<span>NODE DG-SRV-24 // LINK SECURE</span>
+			<span class="terminal-status__right">MODE // {appState.toUpperCase()}</span>
+		</div>
+
+		<div class="flex flex-col items-center">
+			{#if isLogin}
+				<Typewriter interval={47}>
+					<h1 class="text-2xl sm:text-3xl text-center">
+						Welcome to the <span class="text-5xl text-delta-green terminal-logo">Δ</span> Secure Server
+						v24.8
+					</h1>
+				</Typewriter>
+				<div class="w-full max-w-lg mt-8">
+					<LogInForm onLogin={handleLogin} />
+				</div>
+			{:else if isWelcome}
+				<Typewriter interval={47} on:done={handleWelcomeDone}>
+					<h1 class="text-2xl sm:text-3xl text-center mb-5">
+						Welcome <span class="text-delta-green times24">{$user}</span> to the
+						<span class="text-5xl text-delta-green terminal-logo">Δ</span>
+						Secure Server
+					</h1>
+				</Typewriter>
+			{:else}
+				<h1 class="text-2xl sm:text-3xl text-center mb-5">
+					Welcome <span class="text-delta-green times32">{$user}</span> to the
+					<button
+						type="button"
+						class="text-5xl text-delta-green cursor-pointer terminal-logo"
+						aria-label="Return to command index"
+						onclick={handleLogoClick}
+					>
+						Δ
+					</button>
 					Secure Server
 				</h1>
-			</Typewriter>
-		{:else}
-			<h1 class="text-3xl mb-5">
-				Welcome <span class="text-delta-green times32">{$user}</span> to the
-				<button class="text-5xl text-delta-green cursor-pointer" onclick={handleLogoClick}>Δ</button
-				>
-				Secure Server
-			</h1>
 
-			{#if isDecrypting}
-				<Decrypting onFinish={handleDecryptingDone} />
-			{:else if isNavigation}
-				<Navigation onCorrespondence={handleCorrespondence} />
-			{:else if isPreamble}
-				<AxiomPreamble onFinish={handlePreambleDone} />
-			{:else if isAxioms}
-				<AxiomViewer page={currentPage} onNext={nextPage} onPrev={prevPage} />
+				{#if isDecrypting}
+					<Decrypting onFinish={handleDecryptingDone} />
+				{:else if isNavigation}
+					<Navigation onCorrespondence={handleCorrespondence} />
+				{:else if isPreamble}
+					<AxiomPreamble onFinish={handlePreambleDone} />
+				{:else if isAxioms}
+					<AxiomViewer page={currentPage} onNext={nextPage} onPrev={prevPage} />
+				{/if}
+
+				<p class="terminal-help mt-4 text-center">HOTKEY // PRESS H TO RETURN TO COMMAND INDEX</p>
 			{/if}
-		{/if}
-	</div>
+		</div>
+	</section>
 </main>
 
 <style>
-	:global(*) {
-		--cursor-color: white !important;
-		background-color: color-mix(in lch, rgb(10, 10, 10) 40%, rgb(5, 5, 5));
-		color: white;
-	}
-
-	:global(input) {
-		color: white !important;
+	.terminal-logo {
+		text-shadow: 0 0 12px rgba(68, 255, 122, 0.55);
 	}
 </style>

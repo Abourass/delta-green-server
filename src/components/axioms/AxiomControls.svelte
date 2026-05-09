@@ -2,58 +2,31 @@
 	type AxiomControlsProps = {
 		onPrev?: () => void;
 		onNext?: () => void;
+		page?: number;
+		totalPages?: number;
 	};
 
-	let { onPrev = () => {}, onNext = () => {} }: AxiomControlsProps = $props();
+	let {
+		onPrev = () => {},
+		onNext = () => {},
+		page = 1,
+		totalPages = 1
+	}: AxiomControlsProps = $props();
 </script>
 
-<div class="flex flex-row justify-around w-2/3 mt-4 fixed to-bottom">
-	<button type="button" class="rounded text-xl p-2" aria-label="Previous page" onclick={onPrev}>
-		<span class="text-md text-gray-400">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-8 w-8"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
-				/>
-			</svg>
-		</span>
-	</button>
+<div class="command-bar w-full">
+	<div class="command-bar__group">
+		<button type="button" class="command-key" aria-label="Previous page" onclick={onPrev}>
+			<span aria-hidden="true">[←]</span>
+			Prev
+		</button>
 
-	<button
-		type="button"
-		class="rounded text-xl p-2 hover:stroke-delta-green"
-		aria-label="Next page"
-		onclick={onNext}
-	>
-		<span class="text-md text-gray-400 hover:stroke-delta-green">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-8 w-8 hover:stroke-delta-green"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="#FFF"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-		</span>
-	</button>
+		<button type="button" class="command-key" aria-label="Next page" onclick={onNext}>
+			<span aria-hidden="true">[→]</span>
+			Next
+		</button>
+	</div>
+
+	<p class="command-indicator" aria-live="polite">Page {page}/{totalPages}</p>
+	<p class="command-hint">Hotkeys: left or right to turn page, H for home</p>
 </div>
-
-<style>
-	.to-bottom {
-		top: 73vh;
-	}
-</style>

@@ -54,7 +54,7 @@
 {#if showAxioms}
 	<Typewriter cascade interval={20} on:done={() => isLastPage && (showSignature = true)}>
 		<br />
-		<ol class="axiom-list">
+		<ol class="axiom-list mb-3">
 			{#each pageAxioms as axiom (axiom.number)}
 				<li>
 					<p>
@@ -82,7 +82,7 @@
 		--<LoopDecode />
 	{/if}
 
-	<AxiomControls {onPrev} {onNext} />
+	<AxiomControls {onPrev} {onNext} {page} totalPages={TOTAL_PAGES} />
 {/if}
 
 <style>

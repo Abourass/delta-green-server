@@ -17,7 +17,7 @@
 		value = $bindable(''),
 		label = '',
 		type = 'text',
-		inputClasses = 'bg-zinc-900',
+		inputClasses = 'terminal-input',
 		labelClasses = '',
 		autocomplete = 'off',
 		name = '',
@@ -32,7 +32,7 @@
 		<input
 			{type}
 			bind:value
-			class={`${inputClasses} w-44`}
+			class={`${inputClasses} w-40 sm:w-52`}
 			{autocomplete}
 			{name}
 			{placeholder}
@@ -43,17 +43,24 @@
 
 <style>
 	label {
-		font-size: 1.5rem;
+		font-size: 1.25rem;
+		gap: 0.5rem;
+		align-items: center;
 	}
 
 	input {
-		font-size: 1.2rem;
-		color: black;
-		padding-left: 0.4rem;
-		height: 26px;
+		font-size: 1.05rem;
+		color: #dffff0;
+		padding-left: 0.45rem;
+		height: 32px;
 		border-radius: 2px;
-		margin-top: auto;
-		margin-bottom: auto;
-		margin-left: 0.2rem;
+		border: 1px solid rgba(76, 124, 94, 0.52);
+		background: rgba(2, 8, 5, 0.85);
+	}
+
+	input:focus-visible {
+		outline: none;
+		border-color: #44ff7a;
+		box-shadow: 0 0 0 1px rgba(68, 255, 122, 0.45);
 	}
 </style>

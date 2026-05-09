@@ -28,12 +28,8 @@
 </Typewriter>
 
 {#if showButton}
-	<button
-		type="button"
-		class="rounded bg-slate-700 text-xl p-2 border border-blue-300 border-opacity-25 hover:border-delta-green"
-		onclick={onFinish}
-	>
+	<button type="button" class="terminal-button text-xl" onclick={onFinish}>
 		Open Attachment
-		<span class="text-md text-gray-400">(Axioms.txt)</span>
+		<span class="text-sm text-(--terminal-dim)">(Axioms.txt)</span>
 	</button>
 {/if}
