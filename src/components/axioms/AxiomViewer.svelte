@@ -8,13 +8,16 @@
 		page?: number;
 		onNext: () => void;
 		onPrev: () => void;
+		reduceMotion?: boolean;
 	};
 
 	const { axioms } = axiomsData;
-	let { page = 1, onNext, onPrev }: AxiomViewerProps = $props();
+	let { page = 1, onNext, onPrev, reduceMotion = false }: AxiomViewerProps = $props();
 
 	const AXIOMS_PER_PAGE = 5;
 	const TOTAL_PAGES = Math.ceil(axioms.length / AXIOMS_PER_PAGE);
+	const titleInterval = $derived(reduceMotion ? 1 : 32);
+	const axiomInterval = $derived(reduceMotion ? 1 : 20);
 
 	// Content is trusted because it is bundled from local static axioms JSON.
 	const trustedHtml = (html: string) => html;
@@ -46,13 +49,13 @@
 </script>
 
 {#if showTitle}
-	<Typewriter cascade on:done={() => (showAxioms = true)}>
+	<Typewriter cascade interval={titleInterval} on:done={() => (showAxioms = true)}>
 		<span class="text-delta-green text-lg"> ALPHONSE'S AXIOMS FOR AGENTS </span>
 	</Typewriter>
 {/if}
 
 {#if showAxioms}
-	<Typewriter cascade interval={20} on:done={() => isLastPage && (showSignature = true)}>
+	<Typewriter cascade interval={axiomInterval} on:done={() => isLastPage && (showSignature = true)}>
 		<br />
 		<ol class="axiom-list mb-3">
 			{#each pageAxioms as axiom (axiom.number)}
@@ -79,7 +82,7 @@
 	</Typewriter>
 
 	{#if isLastPage && showSignature}
-		--<LoopDecode />
+		--<LoopDecode {reduceMotion} />
 	{/if}
 
 	<AxiomControls {onPrev} {onNext} {page} totalPages={TOTAL_PAGES} />

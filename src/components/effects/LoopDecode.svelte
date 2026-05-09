@@ -8,12 +8,14 @@
 		startingText?: string;
 		keys?: string[];
 		fadeFor?: number;
+		reduceMotion?: boolean;
 	};
 
 	let {
 		startingText = randomChar(6),
 		keys = axiomsData.signature.names,
-		fadeFor = 10
+		fadeFor = 10,
+		reduceMotion = false
 	}: LoopDecodeProps = $props();
 
 	let currentText = $state('');
@@ -90,7 +92,11 @@
 
 <div>
 	{#if finished}
-		<span transition:blur={{ amount: 8 }} class="capitalize"> {currentText} </span>
+		{#if reduceMotion}
+			<span class="capitalize"> {currentText} </span>
+		{:else}
+			<span transition:blur={{ amount: 8 }} class="capitalize"> {currentText} </span>
+		{/if}
 	{:else}
 		<span> {currentText} </span>
 	{/if}

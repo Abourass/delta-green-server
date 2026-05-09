@@ -9,6 +9,8 @@
 	--terminal-accent: #44ff7a;
 	--terminal-border: #2d5f45;
 	--terminal-panel: rgba(7, 16, 11, 0.74);
+	--crt-scanline-opacity: 0.15;
+	--crt-vignette-opacity: 1;
 }
 
 * {
@@ -48,7 +50,7 @@ body::before {
 		transparent 1px,
 		transparent 3px
 	);
-	opacity: 0.15;
+	opacity: var(--crt-scanline-opacity);
 	mix-blend-mode: screen;
 }
 
@@ -58,6 +60,51 @@ body::after {
 	inset: 0;
 	pointer-events: none;
 	background: radial-gradient(circle at center, transparent 52%, rgba(0, 0, 0, 0.58) 100%);
+	opacity: var(--crt-vignette-opacity);
+}
+
+body[data-crt-intensity='off'] {
+	--crt-scanline-opacity: 0;
+	--crt-vignette-opacity: 0.45;
+}
+
+body[data-crt-intensity='low'] {
+	--crt-scanline-opacity: 0.08;
+	--crt-vignette-opacity: 0.72;
+}
+
+body[data-crt-intensity='high'] {
+	--crt-scanline-opacity: 0.15;
+	--crt-vignette-opacity: 1;
+}
+
+body[data-flicker='on']::after {
+	animation: crt-flicker 190ms steps(3, end) infinite;
+}
+
+body[data-flicker='off']::after {
+	animation: none;
+}
+
+@keyframes crt-flicker {
+	0% {
+		opacity: calc(var(--crt-vignette-opacity) * 0.96);
+	}
+	50% {
+		opacity: calc(var(--crt-vignette-opacity) * 1);
+	}
+	100% {
+		opacity: calc(var(--crt-vignette-opacity) * 0.93);
+	}
+}
+
+body[data-motion='reduced'] *,
+body[data-motion='reduced'] *::before,
+body[data-motion='reduced'] *::after {
+	animation-duration: 0.001ms !important;
+	animation-iteration-count: 1 !important;
+	transition-duration: 0.001ms !important;
+	scroll-behavior: auto !important;
 }
 
 .bbs-shell {
@@ -109,6 +156,117 @@ body::after {
 .terminal-status__right {
 	color: #b0ffd2;
 	text-transform: uppercase;
+}
+
+.terminal-status__meta {
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+
+.terminal-status__button {
+	padding: 0.25rem 0.45rem;
+	font-size: 0.74rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	border: 1px solid rgba(76, 124, 94, 0.52);
+	border-radius: 2px;
+	background: rgba(11, 28, 19, 0.94);
+	color: #deffe8;
+	transition:
+		border-color 120ms ease,
+		box-shadow 120ms ease;
+}
+
+.terminal-status__button:hover,
+.terminal-status__button:focus-visible {
+	border-color: var(--terminal-accent);
+	box-shadow: 0 0 10px rgba(68, 255, 122, 0.22);
+	outline: none;
+}
+
+.terminal-tuning {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	padding: 0.7rem 0.8rem;
+	border: 1px solid rgba(76, 124, 94, 0.52);
+	border-radius: 2px;
+	background: rgba(3, 10, 6, 0.78);
+}
+
+.terminal-tuning__row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.terminal-tuning__row--grid {
+	justify-content: flex-start;
+	gap: 0.95rem;
+}
+
+.terminal-tuning__label {
+	font-size: 0.82rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--terminal-dim);
+}
+
+.terminal-segment {
+	display: inline-flex;
+	border: 1px solid rgba(76, 124, 94, 0.52);
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.terminal-segment__option {
+	padding: 0.3rem 0.55rem;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	border: 0;
+	background: rgba(11, 28, 19, 0.94);
+	color: #9fbca9;
+	transition:
+		background-color 120ms ease,
+		color 120ms ease;
+}
+
+.terminal-segment__option + .terminal-segment__option {
+	border-left: 1px solid rgba(76, 124, 94, 0.52);
+}
+
+.terminal-segment__option:hover,
+.terminal-segment__option:focus-visible {
+	outline: none;
+	color: #deffe8;
+	background: rgba(17, 43, 30, 0.95);
+}
+
+.terminal-segment__option.is-active {
+	background: rgba(26, 76, 50, 0.95);
+	color: #deffe8;
+}
+
+.terminal-check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.8rem;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	color: #b8d6c2;
+}
+
+.terminal-check input {
+	width: 0.9rem;
+	height: 0.9rem;
+	accent-color: #44ff7a;
 }
 
 .terminal-help {
@@ -254,6 +412,15 @@ li,
 	}
 
 	.terminal-status {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.terminal-status__meta {
+		justify-content: flex-start;
+	}
+
+	.terminal-tuning__row {
 		flex-direction: column;
 		align-items: flex-start;
 	}

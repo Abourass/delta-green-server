@@ -4,16 +4,18 @@
 
 	type AxiomPreambleProps = {
 		onFinish?: () => void;
+		reduceMotion?: boolean;
 	};
 
-	let { onFinish = () => {} }: AxiomPreambleProps = $props();
+	let { onFinish = () => {}, reduceMotion = false }: AxiomPreambleProps = $props();
 	let showButton = $state(false);
+	const preambleInterval = $derived(reduceMotion ? 1 : 28);
 
 	// Content is trusted because it is bundled from local static axioms JSON.
 	const trustedHtml = (html: string) => html;
 </script>
 
-<Typewriter cascade on:done={() => (showButton = true)}>
+<Typewriter cascade interval={preambleInterval} on:done={() => (showButton = true)}>
 	{#each axiomsData.preamble.lines as line, lineIdx (`line-${lineIdx}`)}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		<p class="text-center pb-4">{@html trustedHtml(line)}</p>
