@@ -13,6 +13,9 @@
 		"test:e2e": "playwright test",
 		"test:e2e:install": "playwright install chromium"
 	},
+	"engines": {
+		"node": ">=20.19.0"
+	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@playwright/test": "^1.59.1",
