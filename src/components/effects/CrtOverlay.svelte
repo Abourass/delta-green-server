@@ -3,28 +3,39 @@
 
 	// Portions of the shader math are adapted from:
 	// https://github.com/gingerbeardman/webgl-crt-shader (MIT)
-	type CrtIntensity = 'off' | 'low' | 'high';
 	type RendererMode = 'css' | 'webgl';
-
-	type CrtOverlayProps = {
-		intensity?: CrtIntensity;
-		flicker?: boolean;
-		reducedMotion?: boolean;
-		onRendererChange?: (mode: RendererMode) => void;
-	};
-
-	type ShaderProfile = {
+	type CrtShaderParams = {
 		scanlineIntensity: number;
 		scanlineCount: number;
 		adaptiveIntensity: number;
+		brightness: number;
+		contrast: number;
+		saturation: number;
+		bloomIntensity: number;
+		bloomThreshold: number;
+		rgbShift: number;
 		vignetteStrength: number;
 		curvature: number;
+		flickerStrength: number;
+	};
+
+	type CrtOverlayProps = {
+		shader?: CrtShaderParams;
+		flicker?: boolean;
+		reducedMotion?: boolean;
+		onRendererChange?: (mode: RendererMode) => void;
 	};
 
 	type UniformMap = {
 		time: WebGLUniformLocation | null;
 		scanlineIntensity: WebGLUniformLocation | null;
 		scanlineCount: WebGLUniformLocation | null;
+		brightness: WebGLUniformLocation | null;
+		contrast: WebGLUniformLocation | null;
+		saturation: WebGLUniformLocation | null;
+		bloomIntensity: WebGLUniformLocation | null;
+		bloomThreshold: WebGLUniformLocation | null;
+		rgbShift: WebGLUniformLocation | null;
 		adaptiveIntensity: WebGLUniformLocation | null;
 		vignetteStrength: WebGLUniformLocation | null;
 		curvature: WebGLUniformLocation | null;
@@ -32,30 +43,19 @@
 	};
 
 	const PIXEL_RATIO_CAP = 2;
-	const FLICKER_STRENGTH_DEFAULT = 0.01;
-
-	const SHADER_PROFILES: Record<CrtIntensity, ShaderProfile> = {
-		off: {
-			scanlineIntensity: 0,
-			scanlineCount: 256,
-			adaptiveIntensity: 0,
-			vignetteStrength: 0.08,
-			curvature: 0.04
-		},
-		low: {
-			scanlineIntensity: 0.24,
-			scanlineCount: 300,
-			adaptiveIntensity: 0.2,
-			vignetteStrength: 0.18,
-			curvature: 0.08
-		},
-		high: {
-			scanlineIntensity: 0.5,
-			scanlineCount: 256,
-			adaptiveIntensity: 0.3,
-			vignetteStrength: 0.3,
-			curvature: 0.1
-		}
+	const DEFAULT_SHADER_PARAMS: CrtShaderParams = {
+		scanlineIntensity: 0.5,
+		scanlineCount: 256,
+		adaptiveIntensity: 0.3,
+		brightness: 1.5,
+		contrast: 1.05,
+		saturation: 1.1,
+		bloomIntensity: 0.5,
+		bloomThreshold: 0.5,
+		rgbShift: 1,
+		vignetteStrength: 0.3,
+		curvature: 0.1,
+		flickerStrength: 0.01
 	};
 
 	const vertexSource = `#version 300 es
@@ -78,6 +78,12 @@
 		uniform float uTime;
 		uniform float uScanlineIntensity;
 		uniform float uScanlineCount;
+		uniform float uBrightness;
+		uniform float uContrast;
+		uniform float uSaturation;
+		uniform float uBloomIntensity;
+		uniform float uBloomThreshold;
+		uniform float uRgbShift;
 		uniform float uAdaptiveIntensity;
 		uniform float uVignetteStrength;
 		uniform float uCurvature;
@@ -87,6 +93,7 @@
 		out vec4 fragColor;
 
 		const float PI = 3.14159265;
+		const vec3 LUMA = vec3(0.299, 0.587, 0.114);
 
 		vec2 curveRemapUV(vec2 uv, float curvature) {
 			vec2 coords = uv * 2.0 - 1.0;
@@ -102,26 +109,30 @@
 			return clamp(1.0 - dist * dist * strength, 0.0, 1.0);
 		}
 
-		void main() {
-			vec2 uv = vUv;
+		float lightingMaskAt(vec2 uv, float timeValue) {
+			vec2 curvedUv = uv;
 
 			if (uCurvature > 0.001) {
-				uv = curveRemapUV(uv, uCurvature);
-				if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
-					fragColor = vec4(0.0, 0.0, 0.0, 1.0);
-					return;
+				curvedUv = curveRemapUV(curvedUv, uCurvature);
+				if (
+					curvedUv.x < 0.0 ||
+					curvedUv.x > 1.0 ||
+					curvedUv.y < 0.0 ||
+					curvedUv.y > 1.0
+				) {
+					return 0.0;
 				}
 			}
 
 			float lightingMask = 1.0;
 
 			if (uScanlineIntensity > 0.001) {
-				float scanlineY = uv.y * uScanlineCount;
+				float scanlineY = curvedUv.y * uScanlineCount;
 				float scanlinePattern = abs(sin(scanlineY * PI));
 				float adaptiveFactor = 1.0;
 
 				if (uAdaptiveIntensity > 0.001) {
-					float yPattern = sin(uv.y * 30.0) * 0.5 + 0.5;
+					float yPattern = sin(curvedUv.y * 30.0) * 0.5 + 0.5;
 					adaptiveFactor = 1.0 - yPattern * uAdaptiveIntensity * 0.2;
 				}
 
@@ -129,20 +140,47 @@
 			}
 
 			if (uFlickerStrength > 0.001) {
-				lightingMask *= 1.0 + sin(uTime * 110.0) * uFlickerStrength;
+				lightingMask *= 1.0 + sin(timeValue * 110.0) * uFlickerStrength;
 			}
 
 			if (uVignetteStrength > 0.001) {
-				lightingMask *= vignetteApprox(uv, uVignetteStrength);
+				lightingMask *= vignetteApprox(curvedUv, uVignetteStrength);
 			}
 
-			float mask = clamp(lightingMask, 0.0, 1.0);
-			fragColor = vec4(vec3(mask), 1.0);
+			return clamp(lightingMask, 0.0, 1.0);
+		}
+
+		void main() {
+			vec2 uv = vUv;
+			float baseMask = lightingMaskAt(uv, uTime);
+			vec3 maskColor = vec3(baseMask);
+
+			if (uRgbShift > 0.001) {
+				float shift = uRgbShift * 0.0025;
+				maskColor.r = lightingMaskAt(uv + vec2(shift, 0.0), uTime);
+				maskColor.g = baseMask;
+				maskColor.b = lightingMaskAt(uv - vec2(shift, 0.0), uTime);
+			}
+
+			// The overlay only darkens/attenuates the scene, so higher brightness moves the mask toward white.
+			float brightnessMix = 1.0 / max(uBrightness, 0.001);
+			maskColor = mix(vec3(1.0), maskColor, brightnessMix);
+			maskColor = (maskColor - 0.5) * uContrast + 0.5;
+			float luminance = dot(maskColor, LUMA);
+			maskColor = mix(vec3(luminance), maskColor, uSaturation);
+
+			if (uBloomIntensity > 0.001) {
+				float bloomSeed = max(maskColor.r, max(maskColor.g, maskColor.b));
+				float bloomMask = smoothstep(uBloomThreshold * 0.5, 1.0, bloomSeed);
+				maskColor = mix(maskColor, vec3(1.0), bloomMask * uBloomIntensity * 0.35);
+			}
+
+			fragColor = vec4(clamp(maskColor, 0.0, 1.0), 1.0);
 		}
 	`;
 
 	let {
-		intensity = 'high',
+		shader = DEFAULT_SHADER_PARAMS,
 		flicker = true,
 		reducedMotion = false,
 		onRendererChange = () => {}
@@ -238,6 +276,12 @@
 		time: gl.getUniformLocation(shaderProgram, 'uTime'),
 		scanlineIntensity: gl.getUniformLocation(shaderProgram, 'uScanlineIntensity'),
 		scanlineCount: gl.getUniformLocation(shaderProgram, 'uScanlineCount'),
+		brightness: gl.getUniformLocation(shaderProgram, 'uBrightness'),
+		contrast: gl.getUniformLocation(shaderProgram, 'uContrast'),
+		saturation: gl.getUniformLocation(shaderProgram, 'uSaturation'),
+		bloomIntensity: gl.getUniformLocation(shaderProgram, 'uBloomIntensity'),
+		bloomThreshold: gl.getUniformLocation(shaderProgram, 'uBloomThreshold'),
+		rgbShift: gl.getUniformLocation(shaderProgram, 'uRgbShift'),
 		adaptiveIntensity: gl.getUniformLocation(shaderProgram, 'uAdaptiveIntensity'),
 		vignetteStrength: gl.getUniformLocation(shaderProgram, 'uVignetteStrength'),
 		curvature: gl.getUniformLocation(shaderProgram, 'uCurvature'),
@@ -266,16 +310,22 @@
 			return;
 		}
 
-		const profile = SHADER_PROFILES[intensity];
-		const flickerStrength = flicker && !reducedMotion ? FLICKER_STRENGTH_DEFAULT : 0;
+		const activeShader = shader;
+		const flickerStrength = flicker && !reducedMotion ? activeShader.flickerStrength : 0;
 
 		glContext.useProgram(program);
 		glContext.uniform1f(uniforms.time, reducedMotion ? 0 : timeSeconds);
-		glContext.uniform1f(uniforms.scanlineIntensity, profile.scanlineIntensity);
-		glContext.uniform1f(uniforms.scanlineCount, profile.scanlineCount);
-		glContext.uniform1f(uniforms.adaptiveIntensity, profile.adaptiveIntensity);
-		glContext.uniform1f(uniforms.vignetteStrength, profile.vignetteStrength);
-		glContext.uniform1f(uniforms.curvature, profile.curvature);
+		glContext.uniform1f(uniforms.scanlineIntensity, activeShader.scanlineIntensity);
+		glContext.uniform1f(uniforms.scanlineCount, activeShader.scanlineCount);
+		glContext.uniform1f(uniforms.brightness, activeShader.brightness);
+		glContext.uniform1f(uniforms.contrast, activeShader.contrast);
+		glContext.uniform1f(uniforms.saturation, activeShader.saturation);
+		glContext.uniform1f(uniforms.bloomIntensity, activeShader.bloomIntensity);
+		glContext.uniform1f(uniforms.bloomThreshold, activeShader.bloomThreshold);
+		glContext.uniform1f(uniforms.rgbShift, activeShader.rgbShift);
+		glContext.uniform1f(uniforms.adaptiveIntensity, activeShader.adaptiveIntensity);
+		glContext.uniform1f(uniforms.vignetteStrength, activeShader.vignetteStrength);
+		glContext.uniform1f(uniforms.curvature, activeShader.curvature);
 		glContext.uniform1f(uniforms.flickerStrength, flickerStrength);
 
 		glContext.drawArrays(glContext.TRIANGLE_STRIP, 0, 4);
@@ -378,6 +428,23 @@
 		if (rendererMode !== 'webgl') {
 			return;
 		}
+
+		const dependencyHash =
+			shader.scanlineIntensity +
+			shader.scanlineCount +
+			shader.adaptiveIntensity +
+			shader.brightness +
+			shader.contrast +
+			shader.saturation +
+			shader.bloomIntensity +
+			shader.bloomThreshold +
+			shader.rgbShift +
+			shader.vignetteStrength +
+			shader.curvature +
+			shader.flickerStrength +
+			(flicker ? 1 : 0) +
+			(reducedMotion ? 1 : 0);
+		void dependencyHash;
 
 		startAnimation();
 		renderFrame(performance.now() * 0.001);

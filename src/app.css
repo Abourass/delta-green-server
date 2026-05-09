@@ -187,6 +187,12 @@ body[data-motion='reduced'] *::after {
 	outline: none;
 }
 
+.terminal-status__button--small {
+	padding: 0.2rem 0.42rem;
+	font-size: 0.68rem;
+	letter-spacing: 0.07em;
+}
+
 .terminal-tuning {
 	display: flex;
 	flex-direction: column;
@@ -208,6 +214,24 @@ body[data-motion='reduced'] *::after {
 .terminal-tuning__row--grid {
 	justify-content: flex-start;
 	gap: 0.95rem;
+}
+
+.terminal-tuning__row--stack {
+	align-items: stretch;
+	gap: 0.85rem;
+}
+
+.terminal-tuning__divider {
+	height: 1px;
+	background: linear-gradient(90deg, transparent, rgba(76, 124, 94, 0.45), transparent);
+}
+
+.terminal-tuning__advanced-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.6rem;
+	flex-wrap: wrap;
 }
 
 .terminal-tuning__label {
@@ -273,6 +297,71 @@ body[data-motion='reduced'] *::after {
 	font-size: 0.78rem;
 	letter-spacing: 0.08em;
 	color: var(--terminal-dim);
+}
+
+.terminal-shader-sections {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.68rem;
+}
+
+.terminal-shader-section {
+	padding: 0.55rem 0.6rem;
+	border: 1px solid rgba(76, 124, 94, 0.42);
+	border-radius: 2px;
+	background: rgba(7, 16, 11, 0.55);
+}
+
+.terminal-shader-section__title {
+	margin: 0 0 0.5rem;
+	font-size: 0.74rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #b0ffd2;
+}
+
+.terminal-slider-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+	gap: 0.58rem 0.7rem;
+}
+
+.terminal-slider {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.terminal-slider__meta {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 0.6rem;
+	font-size: 0.72rem;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	color: #b8d6c2;
+}
+
+.terminal-slider__value {
+	font-variant-numeric: tabular-nums;
+	color: #deffe8;
+}
+
+.terminal-slider input[type='range'] {
+	width: 100%;
+	height: 0.95rem;
+	margin: 0;
+	padding: 0;
+	accent-color: #44ff7a;
+	background: transparent;
+}
+
+.terminal-slider__note {
+	font-size: 0.62rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #87a793;
 }
 
 .terminal-button {
@@ -423,6 +512,14 @@ li,
 	.terminal-tuning__row {
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.terminal-tuning__advanced-head {
+		width: 100%;
+	}
+
+	.terminal-slider-grid {
+		grid-template-columns: 1fr;
 	}
 }
 

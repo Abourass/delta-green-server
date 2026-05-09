@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Typewriter from 'svelte-typewriter';
 	import LogInForm from '$components/LogInForm.svelte';
 	import Decrypting from '$components/Decrypting.svelte';
@@ -19,21 +20,156 @@
 
 	type CrtIntensity = 'off' | 'low' | 'high';
 	type CrtRenderer = 'css' | 'webgl';
+	type ShaderTuning = {
+		scanlineIntensity: number;
+		scanlineCount: number;
+		adaptiveIntensity: number;
+		brightness: number;
+		contrast: number;
+		saturation: number;
+		bloomIntensity: number;
+		bloomThreshold: number;
+		rgbShift: number;
+		vignetteStrength: number;
+		curvature: number;
+		flickerStrength: number;
+	};
+
+	type ShaderControlMeta = {
+		label: string;
+		min: number;
+		max: number;
+		step: number;
+		isApproximation?: boolean;
+	};
+
+	type ShaderControlSection = {
+		title: string;
+		keys: Array<keyof ShaderTuning>;
+	};
 
 	type TerminalSettings = {
 		crtIntensity: CrtIntensity;
 		flicker: boolean;
 		keyclick: boolean;
 		reducedMotion: boolean;
+		shader: ShaderTuning;
 	};
 
 	const SETTINGS_STORAGE_KEY = 'dg-terminal-tuning-v1';
+	const CRT_INTENSITY_PRESETS: Record<CrtIntensity, ShaderTuning> = {
+		off: {
+			scanlineIntensity: 0,
+			scanlineCount: 256,
+			adaptiveIntensity: 0,
+			brightness: 1,
+			contrast: 1,
+			saturation: 1,
+			bloomIntensity: 0,
+			bloomThreshold: 0.5,
+			rgbShift: 0,
+			vignetteStrength: 0.08,
+			curvature: 0.04,
+			flickerStrength: 0
+		},
+		low: {
+			scanlineIntensity: 0.24,
+			scanlineCount: 300,
+			adaptiveIntensity: 0.2,
+			brightness: 1.2,
+			contrast: 1.02,
+			saturation: 1.05,
+			bloomIntensity: 0.22,
+			bloomThreshold: 0.5,
+			rgbShift: 0.35,
+			vignetteStrength: 0.18,
+			curvature: 0.08,
+			flickerStrength: 0.006
+		},
+		high: {
+			scanlineIntensity: 0.5,
+			scanlineCount: 256,
+			adaptiveIntensity: 0.3,
+			brightness: 1.5,
+			contrast: 1.05,
+			saturation: 1.1,
+			bloomIntensity: 0.5,
+			bloomThreshold: 0.5,
+			rgbShift: 1,
+			vignetteStrength: 0.3,
+			curvature: 0.1,
+			flickerStrength: 0.01
+		}
+	};
+
 	const DEFAULT_TERMINAL_SETTINGS: TerminalSettings = {
 		crtIntensity: 'high',
 		flicker: true,
 		keyclick: false,
-		reducedMotion: false
+		reducedMotion: false,
+		shader: { ...CRT_INTENSITY_PRESETS.high }
 	};
+
+	const SHADER_CONTROL_META: Record<keyof ShaderTuning, ShaderControlMeta> = {
+		scanlineIntensity: { label: 'Intensity', min: 0, max: 1, step: 0.01 },
+		scanlineCount: { label: 'Count', min: 50, max: 1200, step: 1 },
+		adaptiveIntensity: { label: 'Adaptive', min: 0, max: 1, step: 0.01 },
+		brightness: { label: 'Brightness', min: 0.6, max: 1.8, step: 0.01, isApproximation: true },
+		contrast: { label: 'Contrast', min: 0.6, max: 1.8, step: 0.01, isApproximation: true },
+		saturation: { label: 'Saturation', min: 0, max: 2, step: 0.01, isApproximation: true },
+		bloomIntensity: {
+			label: 'Bloom Intensity',
+			min: 0,
+			max: 1.5,
+			step: 0.01,
+			isApproximation: true
+		},
+		bloomThreshold: {
+			label: 'Bloom Threshold',
+			min: 0,
+			max: 1,
+			step: 0.01,
+			isApproximation: true
+		},
+		rgbShift: { label: 'RGB Shift', min: 0, max: 1, step: 0.01, isApproximation: true },
+		vignetteStrength: { label: 'Vignette', min: 0, max: 2, step: 0.01 },
+		curvature: { label: 'Curvature', min: 0, max: 0.5, step: 0.005 },
+		flickerStrength: { label: 'Flicker', min: 0, max: 0.15, step: 0.001 }
+	};
+
+	const SHADER_CONTROL_SECTIONS: ShaderControlSection[] = [
+		{ title: 'Scanlines', keys: ['scanlineIntensity', 'scanlineCount', 'adaptiveIntensity'] },
+		{ title: 'Color', keys: ['brightness', 'contrast', 'saturation'] },
+		{ title: 'Bloom', keys: ['bloomIntensity', 'bloomThreshold', 'rgbShift'] },
+		{ title: 'Framing', keys: ['vignetteStrength', 'curvature', 'flickerStrength'] }
+	];
+
+	const SHADER_CONTROL_KEYS = Object.keys(SHADER_CONTROL_META) as Array<keyof ShaderTuning>;
+
+	const cloneShader = (shader: ShaderTuning): ShaderTuning => ({ ...shader });
+	const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+	const getStepPrecision = (step: number) => {
+		const stepAsText = String(step);
+		const decimalIndex = stepAsText.indexOf('.');
+		return decimalIndex === -1 ? 0 : stepAsText.length - decimalIndex - 1;
+	};
+
+	const formatControlValue = (value: number, step: number) => value.toFixed(getStepPrecision(step));
+
+	const isRecord = (value: unknown): value is Record<string, unknown> =>
+		typeof value === 'object' && value !== null;
+
+	const isFiniteNumber = (value: unknown): value is number =>
+		typeof value === 'number' && Number.isFinite(value);
+
+	const createInitialTerminalSettings = (): TerminalSettings => ({
+		crtIntensity: DEFAULT_TERMINAL_SETTINGS.crtIntensity,
+		flicker: DEFAULT_TERMINAL_SETTINGS.flicker,
+		keyclick: DEFAULT_TERMINAL_SETTINGS.keyclick,
+		reducedMotion: DEFAULT_TERMINAL_SETTINGS.reducedMotion,
+		shader: cloneShader(DEFAULT_TERMINAL_SETTINGS.shader)
+	});
 
 	const isCrtIntensity = (value: unknown): value is CrtIntensity =>
 		value === 'off' || value === 'low' || value === 'high';
@@ -46,7 +182,7 @@
 	let currentPage = $state(FIRST_AXIOM_PAGE);
 	let showSettings = $state(false);
 	let settingsLoaded = $state(false);
-	let terminalSettings = $state<TerminalSettings>({ ...DEFAULT_TERMINAL_SETTINGS });
+	let terminalSettings = $state<TerminalSettings>(createInitialTerminalSettings());
 	let crtRenderer = $state<CrtRenderer>('css');
 	let audioContext: AudioContext | null = null;
 	const totalPages = TOTAL_AXIOM_PAGES;
@@ -100,6 +236,11 @@
 
 	const setCrtIntensity = (crtIntensity: CrtIntensity) => {
 		terminalSettings.crtIntensity = crtIntensity;
+		terminalSettings.shader = cloneShader(CRT_INTENSITY_PRESETS[crtIntensity]);
+	};
+
+	const resetShaderToPreset = () => {
+		terminalSettings.shader = cloneShader(CRT_INTENSITY_PRESETS[terminalSettings.crtIntensity]);
 	};
 
 	const setFlicker = (event: Event) => {
@@ -112,6 +253,16 @@
 
 	const setReducedMotion = (event: Event) => {
 		terminalSettings.reducedMotion = (event.currentTarget as HTMLInputElement).checked;
+	};
+
+	const setShaderValue = (key: keyof ShaderTuning, event: Event) => {
+		const nextValue = Number.parseFloat((event.currentTarget as HTMLInputElement).value);
+		if (!Number.isFinite(nextValue)) {
+			return;
+		}
+
+		const control = SHADER_CONTROL_META[key];
+		terminalSettings.shader[key] = clamp(nextValue, control.min, control.max);
 	};
 
 	const handleRendererChange = (nextRenderer: CrtRenderer) => {
@@ -161,7 +312,7 @@
 		oscillator.stop(now + 0.032);
 	};
 
-	$effect(() => {
+	onMount(() => {
 		if (typeof window === 'undefined') {
 			return;
 		}
@@ -169,22 +320,36 @@
 		try {
 			const savedSettings = window.localStorage.getItem(SETTINGS_STORAGE_KEY);
 			if (savedSettings) {
-				const parsed = JSON.parse(savedSettings) as Partial<TerminalSettings>;
+				const parsed = JSON.parse(savedSettings) as unknown;
 
-				if (isCrtIntensity(parsed.crtIntensity)) {
-					terminalSettings.crtIntensity = parsed.crtIntensity;
-				}
+				if (isRecord(parsed)) {
+					if (isCrtIntensity(parsed.crtIntensity)) {
+						setCrtIntensity(parsed.crtIntensity);
+					}
 
-				if (typeof parsed.flicker === 'boolean') {
-					terminalSettings.flicker = parsed.flicker;
-				}
+					if (typeof parsed.flicker === 'boolean') {
+						terminalSettings.flicker = parsed.flicker;
+					}
 
-				if (typeof parsed.keyclick === 'boolean') {
-					terminalSettings.keyclick = parsed.keyclick;
-				}
+					if (typeof parsed.keyclick === 'boolean') {
+						terminalSettings.keyclick = parsed.keyclick;
+					}
 
-				if (typeof parsed.reducedMotion === 'boolean') {
-					terminalSettings.reducedMotion = parsed.reducedMotion;
+					if (typeof parsed.reducedMotion === 'boolean') {
+						terminalSettings.reducedMotion = parsed.reducedMotion;
+					}
+
+					if (isRecord(parsed.shader)) {
+						for (const key of SHADER_CONTROL_KEYS) {
+							const rawValue = parsed.shader[key];
+							if (!isFiniteNumber(rawValue)) {
+								continue;
+							}
+
+							const control = SHADER_CONTROL_META[key];
+							terminalSettings.shader[key] = clamp(rawValue, control.min, control.max);
+						}
+					}
 				}
 			}
 		} catch {
@@ -203,7 +368,8 @@
 			crtIntensity: terminalSettings.crtIntensity,
 			flicker: terminalSettings.flicker,
 			keyclick: terminalSettings.keyclick,
-			reducedMotion: terminalSettings.reducedMotion
+			reducedMotion: terminalSettings.reducedMotion,
+			shader: cloneShader(terminalSettings.shader)
 		};
 
 		window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(payload));
@@ -303,7 +469,7 @@
 
 <main class="bbs-shell">
 	<CrtOverlay
-		intensity={terminalSettings.crtIntensity}
+		shader={terminalSettings.shader}
 		flicker={terminalSettings.flicker}
 		reducedMotion={terminalSettings.reducedMotion}
 		onRendererChange={handleRendererChange}
@@ -378,6 +544,58 @@
 						/>
 						<span>Reduced Motion</span>
 					</label>
+				</div>
+
+				<div class="terminal-tuning__divider" role="presentation"></div>
+
+				<div class="terminal-tuning__row terminal-tuning__row--stack">
+					<div class="terminal-tuning__advanced-head">
+						<span class="terminal-tuning__label">Advanced Shader Parameters</span>
+						<button
+							type="button"
+							class="terminal-status__button terminal-status__button--small"
+							onclick={resetShaderToPreset}
+						>
+							RESET TO {terminalSettings.crtIntensity.toUpperCase()} PRESET
+						</button>
+					</div>
+
+					<div class="terminal-shader-sections">
+						{#each SHADER_CONTROL_SECTIONS as section (section.title)}
+							<section class="terminal-shader-section" aria-label={`Shader ${section.title}`}>
+								<p class="terminal-shader-section__title">{section.title}</p>
+								<div class="terminal-slider-grid">
+									{#each section.keys as key (key)}
+										{@const control = SHADER_CONTROL_META[key]}
+										<label class="terminal-slider">
+											<span class="terminal-slider__meta">
+												<span class="terminal-slider__label">{control.label}</span>
+												<span class="terminal-slider__value">
+													{formatControlValue(terminalSettings.shader[key], control.step)}
+												</span>
+											</span>
+											<input
+												type="range"
+												min={control.min}
+												max={control.max}
+												step={control.step}
+												value={terminalSettings.shader[key]}
+												oninput={(event) => setShaderValue(key, event)}
+											/>
+											{#if control.isApproximation}
+												<span class="terminal-slider__note">Overlay approximation</span>
+											{/if}
+										</label>
+									{/each}
+								</div>
+							</section>
+						{/each}
+					</div>
+
+					<p class="terminal-help mt-1 text-center">
+						NOTE // COLOR, BLOOM, AND RGB SHIFT CONTROLS ARE OVERLAY APPROXIMATIONS UNTIL
+						FULL POST-PROCESS IS ENABLED.
+					</p>
 				</div>
 
 				<p class="terminal-help mt-2 text-center">HOTKEY // PRESS T TO TOGGLE TERMINAL TUNING</p>
