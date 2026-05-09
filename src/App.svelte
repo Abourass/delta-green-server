@@ -114,24 +114,22 @@
 		scanlineIntensity: { label: 'Intensity', min: 0, max: 1, step: 0.01 },
 		scanlineCount: { label: 'Count', min: 50, max: 1200, step: 1 },
 		adaptiveIntensity: { label: 'Adaptive', min: 0, max: 1, step: 0.01 },
-		brightness: { label: 'Brightness', min: 0.6, max: 1.8, step: 0.01, isApproximation: true },
-		contrast: { label: 'Contrast', min: 0.6, max: 1.8, step: 0.01, isApproximation: true },
-		saturation: { label: 'Saturation', min: 0, max: 2, step: 0.01, isApproximation: true },
+		brightness: { label: 'Brightness', min: 0.6, max: 1.8, step: 0.01 },
+		contrast: { label: 'Contrast', min: 0.6, max: 1.8, step: 0.01 },
+		saturation: { label: 'Saturation', min: 0, max: 2, step: 0.01 },
 		bloomIntensity: {
 			label: 'Bloom Intensity',
 			min: 0,
 			max: 1.5,
-			step: 0.01,
-			isApproximation: true
+			step: 0.01
 		},
 		bloomThreshold: {
 			label: 'Bloom Threshold',
 			min: 0,
 			max: 1,
-			step: 0.01,
-			isApproximation: true
+			step: 0.01
 		},
-		rgbShift: { label: 'RGB Shift', min: 0, max: 1, step: 0.01, isApproximation: true },
+		rgbShift: { label: 'RGB Shift', min: 0, max: 1, step: 0.01 },
 		vignetteStrength: { label: 'Vignette', min: 0, max: 2, step: 0.01 },
 		curvature: { label: 'Curvature', min: 0, max: 0.5, step: 0.005 },
 		flickerStrength: { label: 'Flicker', min: 0, max: 0.15, step: 0.001 }
@@ -582,9 +580,6 @@
 												value={terminalSettings.shader[key]}
 												oninput={(event) => setShaderValue(key, event)}
 											/>
-											{#if control.isApproximation}
-												<span class="terminal-slider__note">Overlay approximation</span>
-											{/if}
 										</label>
 									{/each}
 								</div>
@@ -593,8 +588,7 @@
 					</div>
 
 					<p class="terminal-help mt-1 text-center">
-						NOTE // COLOR, BLOOM, AND RGB SHIFT CONTROLS ARE OVERLAY APPROXIMATIONS UNTIL
-						FULL POST-PROCESS IS ENABLED.
+						LIVE POST-PROCESS // SLIDERS MODIFY SHADER UNIFORMS IN REAL TIME.
 					</p>
 				</div>
 

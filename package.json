@@ -36,6 +36,7 @@
 		"vite": "^8.0.11"
 	},
 	"dependencies": {
+		"html2canvas": "^1.4.1",
 		"svelte-typewriter": "^3.2.3"
 	}
 }
