@@ -38,7 +38,7 @@ body {
 		);
 }
 
-body::before {
+body[data-crt-renderer='css']::before {
 	content: '';
 	position: fixed;
 	inset: 0;
@@ -54,7 +54,7 @@ body::before {
 	mix-blend-mode: screen;
 }
 
-body::after {
+body[data-crt-renderer='css']::after {
 	content: '';
 	position: fixed;
 	inset: 0;
@@ -78,11 +78,11 @@ body[data-crt-intensity='high'] {
 	--crt-vignette-opacity: 1;
 }
 
-body[data-flicker='on']::after {
+body[data-crt-renderer='css'][data-flicker='on']::after {
 	animation: crt-flicker 190ms steps(3, end) infinite;
 }
 
-body[data-flicker='off']::after {
+body[data-crt-renderer='css'][data-flicker='off']::after {
 	animation: none;
 }
 

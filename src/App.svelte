@@ -3,6 +3,7 @@
 	import LogInForm from '$components/LogInForm.svelte';
 	import Decrypting from '$components/Decrypting.svelte';
 	import Navigation from '$components/Navigation.svelte';
+	import CrtOverlay from '$components/effects/CrtOverlay.svelte';
 	import AxiomPreamble from '$components/axioms/AxiomPreamble.svelte';
 	import AxiomViewer from '$components/axioms/AxiomViewer.svelte';
 	import {
@@ -17,6 +18,7 @@
 	import { user } from './stores/user';
 
 	type CrtIntensity = 'off' | 'low' | 'high';
+	type CrtRenderer = 'css' | 'webgl';
 
 	type TerminalSettings = {
 		crtIntensity: CrtIntensity;
@@ -45,6 +47,7 @@
 	let showSettings = $state(false);
 	let settingsLoaded = $state(false);
 	let terminalSettings = $state<TerminalSettings>({ ...DEFAULT_TERMINAL_SETTINGS });
+	let crtRenderer = $state<CrtRenderer>('css');
 	let audioContext: AudioContext | null = null;
 	const totalPages = TOTAL_AXIOM_PAGES;
 	const headingInterval = $derived(terminalSettings.reducedMotion ? 1 : 47);
@@ -109,6 +112,10 @@
 
 	const setReducedMotion = (event: Event) => {
 		terminalSettings.reducedMotion = (event.currentTarget as HTMLInputElement).checked;
+	};
+
+	const handleRendererChange = (nextRenderer: CrtRenderer) => {
+		crtRenderer = nextRenderer;
 	};
 
 	const playKeyClick = () => {
@@ -208,6 +215,7 @@
 		}
 
 		document.body.dataset.crtIntensity = terminalSettings.crtIntensity;
+		document.body.dataset.crtRenderer = crtRenderer;
 		document.body.dataset.flicker = terminalSettings.flicker ? 'on' : 'off';
 		document.body.dataset.motion = terminalSettings.reducedMotion ? 'reduced' : 'full';
 	});
@@ -294,6 +302,13 @@
 </script>
 
 <main class="bbs-shell">
+	<CrtOverlay
+		intensity={terminalSettings.crtIntensity}
+		flicker={terminalSettings.flicker}
+		reducedMotion={terminalSettings.reducedMotion}
+		onRendererChange={handleRendererChange}
+	/>
+
 	<section class="terminal-panel w-[92%] max-w-4xl px-5 py-8 sm:px-10 sm:py-10">
 		<div class="terminal-status mb-5">
 			<span>NODE DG-SRV-24 // LINK SECURE</span>
