@@ -50,6 +50,8 @@
 	const CAPTURE_SCALE = 1;
 	const CAPTURE_INTERVAL_MS = 1000 / 3;
 	const REDUCED_CAPTURE_INTERVAL_MS = 1200;
+	const CAPTURE_DEBOUNCE_MS = 140;
+	const REDUCED_CAPTURE_DEBOUNCE_MS = 280;
 	const DEFAULT_SHADER_PARAMS: CrtShaderParams = {
 		scanlineIntensity: 0.5,
 		scanlineCount: 256,
@@ -288,6 +290,8 @@
 	let lastCaptureAtMs = 0;
 	let componentMounted = false;
 	let sourceObserver: MutationObserver | null = null;
+	let captureQueuedHandle = 0;
+	let captureInvalidated = false;
 
 	const setRendererMode = (nextMode: RendererMode) => {
 		if (rendererMode === nextMode) {
@@ -295,6 +299,56 @@
 		}
 		rendererMode = nextMode;
 		onRendererChange(nextMode);
+	};
+
+	const shouldAnimateContinuously = () =>
+		rendererMode === 'webgl' && !reducedMotion && flicker && shader.flickerStrength > 0.001;
+
+	const getCaptureIntervalMs = () =>
+		reducedMotion ? REDUCED_CAPTURE_INTERVAL_MS : CAPTURE_INTERVAL_MS;
+
+	const getCaptureDebounceMs = () =>
+		reducedMotion ? REDUCED_CAPTURE_DEBOUNCE_MS : CAPTURE_DEBOUNCE_MS;
+
+	const clearQueuedCapture = () => {
+		if (typeof window === 'undefined' || !captureQueuedHandle) {
+			return;
+		}
+
+		window.clearTimeout(captureQueuedHandle);
+		captureQueuedHandle = 0;
+	};
+
+	const queueCapture = (force = false) => {
+		if (
+			typeof window === 'undefined' ||
+			rendererMode !== 'webgl' ||
+			!componentMounted ||
+			!html2canvasFn ||
+			captureInFlight
+		) {
+			return;
+		}
+
+		if (!sourceDirty && !force) {
+			return;
+		}
+
+		if (document.visibilityState !== 'visible' && !force) {
+			return;
+		}
+
+		const now = performance.now();
+		const elapsedSinceCapture = now - lastCaptureAtMs;
+		const intervalDelay = force ? 0 : Math.max(0, getCaptureIntervalMs() - elapsedSinceCapture);
+		const debounceDelay = force ? 0 : getCaptureDebounceMs();
+		const delayMs = Math.max(intervalDelay, debounceDelay);
+
+		clearQueuedCapture();
+		captureQueuedHandle = window.setTimeout(() => {
+			captureQueuedHandle = 0;
+			void captureSourceFrame();
+		}, delayMs);
 	};
 
 	const compileShader = (
@@ -500,6 +554,13 @@
 
 	const markSourceDirty = () => {
 		sourceDirty = true;
+
+		if (captureInFlight) {
+			captureInvalidated = true;
+			return;
+		}
+
+		queueCapture();
 	};
 
 	const mutationTouchesRenderableContent = (mutation: MutationRecord) => {
@@ -521,10 +582,6 @@
 		}
 
 		sourceObserver = new MutationObserver((mutations) => {
-			if (sourceDirty) {
-				return;
-			}
-
 			for (const mutation of mutations) {
 				if (mutationTouchesRenderableContent(mutation)) {
 					markSourceDirty();
@@ -536,7 +593,6 @@
 		sourceObserver.observe(document.body, {
 			subtree: true,
 			childList: true,
-			attributes: true,
 			characterData: true
 		});
 	};
@@ -551,7 +607,7 @@
 	};
 
 	const captureSourceFrame = async () => {
-		if (!html2canvasFn || !componentMounted || captureInFlight) {
+		if (!html2canvasFn || !componentMounted || captureInFlight || rendererMode !== 'webgl') {
 			return;
 		}
 
@@ -559,7 +615,14 @@
 			return;
 		}
 
+		if (document.visibilityState !== 'visible') {
+			queueCapture();
+			return;
+		}
+
+		clearQueuedCapture();
 		captureInFlight = true;
+		captureInvalidated = false;
 		try {
 			const snapshot = await html2canvasFn(document.body, {
 				backgroundColor: null,
@@ -577,13 +640,19 @@
 			});
 
 			uploadSourceCanvas(snapshot);
-			sourceDirty = false;
-			lastCaptureAtMs = performance.now();
-			renderFrame(lastCaptureAtMs * 0.001);
+			const capturedAtMs = performance.now();
+			sourceDirty = captureInvalidated;
+			lastCaptureAtMs = capturedAtMs;
+			renderFrame(capturedAtMs * 0.001);
 		} catch {
 			// Keep WebGL active and rely on procedural fallback if capture fails.
+			lastCaptureAtMs = performance.now();
+			sourceDirty = true;
 		} finally {
 			captureInFlight = false;
+			if (sourceDirty) {
+				queueCapture();
+			}
 		}
 	};
 
@@ -632,18 +701,12 @@
 
 		stopAnimation();
 
+		if (!shouldAnimateContinuously()) {
+			renderFrame(performance.now() * 0.001);
+			return;
+		}
+
 		const loop = (timestampMs: number) => {
-			const captureInterval = reducedMotion ? REDUCED_CAPTURE_INTERVAL_MS : CAPTURE_INTERVAL_MS;
-			const shouldCapture =
-				document.visibilityState === 'visible' &&
-				timestampMs - lastCaptureAtMs >= captureInterval &&
-				!captureInFlight &&
-				(sourceDirty || !sourceReady);
-
-			if (shouldCapture) {
-				void captureSourceFrame();
-			}
-
 			renderFrame(timestampMs * 0.001);
 			frameHandle = requestAnimationFrame(loop);
 		};
@@ -655,15 +718,29 @@
 		resizeCanvas();
 		markSourceDirty();
 		lastCaptureAtMs = 0;
-		void captureSourceFrame();
+		queueCapture(true);
 	};
 
 	const handleInteraction = () => {
 		markSourceDirty();
 	};
 
+	const handleVisibilityChange = () => {
+		if (document.visibilityState === 'visible') {
+			startAnimation();
+			if (sourceDirty) {
+				queueCapture(true);
+			}
+			return;
+		}
+
+		clearQueuedCapture();
+		stopAnimation();
+	};
+
 	const teardown = () => {
 		stopAnimation();
+		clearQueuedCapture();
 		stopSourceObserver();
 
 		if (glContext && positionBuffer) {
@@ -688,6 +765,7 @@
 		sourceWidth = 0;
 		sourceHeight = 0;
 		captureInFlight = false;
+		captureInvalidated = false;
 		lastCaptureAtMs = 0;
 		html2canvasFn = null;
 	};
@@ -749,11 +827,12 @@
 				startSourceObserver();
 				if (html2canvasFn) {
 					markSourceDirty();
-					await captureSourceFrame();
+					queueCapture(true);
 				}
 				startAnimation();
 				window.addEventListener('resize', handleResize, { passive: true });
 				window.addEventListener('scroll', handleInteraction, { passive: true });
+				document.addEventListener('visibilitychange', handleVisibilityChange);
 				document.addEventListener('input', handleInteraction, { passive: true });
 				document.addEventListener('change', handleInteraction, { passive: true });
 			} catch {
@@ -768,6 +847,7 @@
 			componentMounted = false;
 			window.removeEventListener('resize', handleResize);
 			window.removeEventListener('scroll', handleInteraction);
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
 			document.removeEventListener('input', handleInteraction);
 			document.removeEventListener('change', handleInteraction);
 			teardown();
@@ -796,6 +876,7 @@
 			(reducedMotion ? 1 : 0);
 		void dependencyHash;
 
+		startAnimation();
 		renderFrame(performance.now() * 0.001);
 	});
 </script>

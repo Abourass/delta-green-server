@@ -183,6 +183,7 @@
 	let terminalSettings = $state<TerminalSettings>(createInitialTerminalSettings());
 	let crtRenderer = $state<CrtRenderer>('css');
 	let audioContext: AudioContext | null = null;
+	let persistSettingsTimeoutId = 0;
 	const totalPages = TOTAL_AXIOM_PAGES;
 	const headingInterval = $derived(terminalSettings.reducedMotion ? 1 : 47);
 	const decryptTransitionDelayMs = $derived(terminalSettings.reducedMotion ? 0 : 380);
@@ -370,7 +371,23 @@
 			shader: cloneShader(terminalSettings.shader)
 		};
 
-		window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(payload));
+		if (persistSettingsTimeoutId) {
+			window.clearTimeout(persistSettingsTimeoutId);
+		}
+
+		persistSettingsTimeoutId = window.setTimeout(() => {
+			window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(payload));
+			persistSettingsTimeoutId = 0;
+		}, 120);
+
+		return () => {
+			if (!persistSettingsTimeoutId) {
+				return;
+			}
+
+			window.clearTimeout(persistSettingsTimeoutId);
+			persistSettingsTimeoutId = 0;
+		};
 	});
 
 	$effect(() => {
